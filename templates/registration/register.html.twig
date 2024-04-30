@@ -64,15 +64,15 @@
 
 {% block body %}
 <div class="form">
-    <h2>Register</h2>
+    <h2>Inscription</h2>
 
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        <label for="{{ registrationForm.firstName.vars.id }}">First Name</label>
+        <label for="{{ registrationForm.firstName.vars.id }}">Nom</label>
         {{ form_widget(registrationForm.firstName, { 'attr': {'class': 'input-field'} }) }}
 
-        <label for="{{ registrationForm.lastName.vars.id }}">Last Name</label>
+        <label for="{{ registrationForm.lastName.vars.id }}">Prénom</label>
         {{ form_widget(registrationForm.lastName, { 'attr': {'class': 'input-field'} }) }}
 
         <label for="{{ registrationForm.email.vars.id }}">Email</label>
@@ -83,7 +83,7 @@
             <br/><br/>
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="submit">Register</button>
+        <button type="submit" class="submit">S'insrire</button>
     {{ form_end(registrationForm) }}
 </div>
 {% endblock %}

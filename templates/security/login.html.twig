@@ -85,7 +85,7 @@ input:focus {
 
 {% block body %}
 <div class="form">
-    <h2 id="1">Log in</h2>
+    <h2 id="1">Connexion</h2>
     <form method="post" class="login-form">
         {% if error %}
             <div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -104,7 +104,7 @@ input:focus {
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button type="submit" class="submit">Sign in</button>
+        <button type="submit" class="submit">se connecter</button>
     </form>
 </div>
 {% endblock %}
