@@ -1,3 +1,291 @@
+@font-face {
+	font-family: 'Poppins';
+	src: url('./fonts/Poppins-Light.woff2') format('woff2'),
+		url('./fonts/Poppins-Light.woff') format('woff');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('./fonts/Poppins-Medium.woff2') format('woff2'),
+		url('./fonts/Poppins-Medium.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('./fonts/Poppins-Bold.woff2') format('woff2'),
+		url('./fonts/Poppins-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('./fonts/Poppins-Regular.woff2') format('woff2'),
+		url('./fonts/Poppins-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('./fonts/Poppins-Thin.woff2') format('woff2'),
+		url('./fonts/Poppins-Thin.woff') format('woff');
+	font-weight: 100;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('./fonts/Poppins-SemiBold.woff2') format('woff2'),
+		url('./fonts/Poppins-SemiBold.woff') format('woff');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+
+@font-face {
+	font-family: 'Wangi';
+	src: url('./fonts/Wangi-vmYRO.woff') format('woff');
+	font-weight: 600;
+	font-style:normal;
+	font-display: swap;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
 body {
-    background-color: skyblue;
+    font-size: medium;
+    font-family: 'Poppins';
+    width: 1024px;
+	margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+	text-align: center;
+}
+li {
+    list-style-type: none;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+.contain_head{
+	margin-top: 1rem;
+	
+}
+.contain_nav {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+	gap: 0.5rem;
+	background-color: #fff;
+	position: sticky;
+	top: 0;
+	z-index: 9000;
+	height: 80px;
+}
+.title {
+    font-family: 'Wangi';
+    font-weight: 600;
+    font-size: 40px;
+    display: flex;
+}
+.B {
+    color: rgb(180, 102, 0);
+}
+.E {
+    color: rgb(180, 102, 0);
+}
+.L {
+    color: rgb(180, 102, 0);
+}
+.b {
+    color: rgba(180, 102, 0, 0.753);
+}
+.o {
+    color: rgba(180, 102, 0, 0.753);
+}
+.i {
+    color: rgba(180, 102, 0, 0.753);
+}
+.s {
+    color: rgba(180, 102, 0, 0.753);
+}
+.menu {
+    display: flex;
+    text-align: center;
+    gap: 3rem;
+}
+.menu_Accueil {
+	position: relative;
+	transition: all 0.3s ease-in-out;
+}
+
+.menu_Accueil:hover {
+	color: rgb(255, 136, 0);
+	text-decoration: none;
+}
+
+.menu_Accueil.active {
+	color: rgb(255, 136, 0);
+	margin-right: 0.8rem;
+	margin-left: 0.8rem;
+}
+
+.menu_Accueil.active::before {
+	content: '[';
+	position: absolute;
+	left: -0.8rem;
+}
+.menu_Accueil.active::after {
+	content: ']';
+	position: absolute;
+	right: -0.8rem;
+}
+
+.menu_Galerie {
+	position: relative;
+	transition: all 0.3s ease-in-out;
+}
+
+.menu_Galerie:hover {
+	color: rgb(255, 136, 0);
+	text-decoration: none;
+}
+
+.menu_Galerie.active {
+	color: rgb(255, 136, 0);
+	margin-right: 0.8rem;
+	margin-left: 0.8rem;
+}
+
+.menu_Galerie.active::before {
+	content: '[';
+	position: absolute;
+	left: -0.8rem;
+}
+.menu_Galerie.active::after {
+	content: ']';
+	position: absolute;
+	right: -0.8rem;
+}
+
+.menu_Boutique {
+	position: relative;
+	transition: all 0.3s ease-in-out;
+}
+
+.menu_Boutique:hover {
+	color: rgb(255, 136, 0);
+	text-decoration: none;
+}
+
+.menu_Boutique.active {
+	color: rgb(255, 136, 0);
+	margin-right: 0.8rem;
+	margin-left: 0.8rem;
+}
+
+.menu_Boutique.active::before {
+	content: '[';
+	position: absolute;
+	left: -0.8rem;
+}
+.menu_Boutique.active::after {
+	content: ']';
+	position: absolute;
+	right: -0.8rem;
+}
+
+
+.button1 {
+	padding: 0.5rem;
+	cursor: pointer;
+	font-size: 15px;
+	background-color: rgba(255, 136, 0, 0.719);
+	border: none;
+	border-radius: 05px;
+	transition: all 0.5s ease-in-out;
+}
+.button1:hover {
+	background-color: rgba(255, 136, 0, 0.61);
+}
+.slideshow-container {
+	position: relative;
+	max-width: 800px ;
+}
+.img {
+	width: 85%;
+	height: 700px;
+}
+
+/*BOUTIQUE **/
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-left: 25rem;
+}
+
+.tab {
+    padding: 10px 20px;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    border-bottom: none;
+}
+
+.tab:hover {
+    background-color: #fafafa;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #fafafa;
+}
+
+/* Style actif pour l'onglet sélectionné */
+.active-tab {
+    background-color: #fafafa;
+    border-bottom: none;
+}
+
+.active-content {
+    display: block;
+}
+
+/* Barre Recherche **/
+
+.b_recherche {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.3rem;
+}
+
+.c_recherche {
+	font-size: x-small;
+	width: 120px;
+	height: 30px;
+	
+}
+
+.btn_recherche {
+	font-size: xx-small;
+	background-color:  rgb(219, 124, 0);
+	cursor: pointer;
+	border: none;
+	color: #fafafa;
 }
