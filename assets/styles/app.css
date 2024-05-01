@@ -304,7 +304,8 @@ a:hover{
 	border-radius: 5px;
 	padding: 0.5rem;
 	float: left;
-	margin-bottom: 1rem;
+	margin-top: 1rem;
+	margin-left: 2rem;
 }
 .lien-Ajout{
 	color: #fff;

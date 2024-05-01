@@ -3,11 +3,10 @@
 {% block title %}Category index{% endblock %}
 
 {% block body %}
+
     <h4>Liste des categories</h4>
     
-    <button class="btn-Ajout">
-        <a href="{{ path('app_category_new') }}"class="lien-Ajout">+ Ajouter</a>
-    </button>
+    {% include 'layouts/_flash_message.html.twig' %}
 
     <table class="table">
         <thead>
@@ -34,5 +33,9 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <button class="btn-Ajout">
+        <a href="{{ path('app_category_new') }}"class="lien-Ajout">+ Ajouter</a>
+    </button>
 
 {% endblock %}
