@@ -65,6 +65,9 @@
 html {
     scroll-behavior: smooth;
 }
+header{
+	margin-bottom: 2rem;
+}
 body {
     font-size: medium;
     font-family: 'Poppins';
@@ -80,6 +83,9 @@ li {
 a{
     color: black;
     text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
 }
 .contain_head{
 	margin-top: 1rem;
@@ -291,5 +297,117 @@ a{
 } */
 
 
-/* Connexion */
+/* Affichage */
+.btn-Ajout{
+	background-color: rgba(255, 136, 0, 0.719);
+	border: none;
+	border-radius: 5px;
+	padding: 0.5rem;
+	float: left;
+	margin-bottom: 1rem;
+}
+.lien-Ajout{
+	color: #fff;
+	font-weight: 600;
+}
+.lien-Ajout:hover{
+	text-decoration: none;
+	color: aliceblue;
+	cursor: pointer;
+}
+.table {
+	max-width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+	border-collapse: collapse;
+	color: #404040;
+  }
+  
+  .table th {
+	font-size: 16px;
+	border-bottom: 4px solid rgb(245, 222, 179);
+	padding: 5px 20px;
+	font-weight: 500;
+	width: 194px;
+  }
+  
+  .table td {
+	font-size: 14px;
+	padding: 5px 30px;
+	font-weight: 400;
+	text-align: center;
+  }
+  
+  .table tr {
+	max-width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+  }
+  
+  .table tr:nth-child(2n) {
+	background-color: #f6f8f8;
+  }
+  
+  .table tr:nth-child(2n) td {
+	border-bottom: 1px solid #e0e0e0;
+	border-top: 1px solid #e0e0e0;
+  }
+  
+/* Ajout */
 
+.btn {
+	margin-top: 1rem;
+}
+.retour{
+	float: left;
+	margin-left: 23rem;
+}
+.lien-retour{
+	color: rgb(179, 95, 0);
+}
+.lien-retour:hover{
+	text-decoration: none;
+}
+.table-lien{
+	font-size: 16px;
+}
+.action{
+	width: 250px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	align-items: center;
+	text-align: center;
+}
+.btn-edit{
+	border: none;
+	border-radius: 5px;
+	font-weight: 500;
+	padding: 0.5rem;
+	background-color: rgb(245, 222, 179);
+}
+.btn-edit:hover{
+	color: #000000;
+	background-color: rgb(240, 207, 145);
+	text-decoration: none;
+}
+.btn-sup{
+	background-color: rgba(255, 98, 98, 0.89);
+	color: #fff;
+	font-weight: 600;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	padding: 0.5rem;
+}
+.btn-sup:hover{
+	cursor: pointer;
+	background-color: rgba(255, 63, 63, 0.89);
+}
+/*Detail */
+
+.Block-btn-show{
+	display: flex;
+	justify-content: space-evenly;
+}

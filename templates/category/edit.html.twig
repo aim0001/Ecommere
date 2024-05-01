@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+<main class="Block-form">
+    <span class="retour">
+        <a href="{{ path('app_category_index') }}"class="lien-retour">&#8592; Retour</a>
+    </span><br>
+        <h4>Modifie categorie</h4><br/>
+        {{ include('category/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+        <br/>
+        {{ include('category/_delete_form.html.twig') }}
+</main>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <h4>Liste des categories</h4>
+    
+    <button class="btn-Ajout">
+        <a href="{{ path('app_category_new') }}"class="lien-Ajout">+ Ajouter</a>
+    </button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td><a href="{{ path('app_category_show', {'id': category.id}) }}"class="table-lien">{{ category.name }}</a></td>
+                <td class="action">
+                    <a href="{{ path('app_category_edit', {'id': category.id}) }}"class="btn-edit">Modifier</a>
+                    {{ include('category/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
