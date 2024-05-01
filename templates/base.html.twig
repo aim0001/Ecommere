@@ -26,14 +26,33 @@
                         <span class="s">s</span>
                     
                 </div>
+                <!--menu hamburger -->
+                <div class="menu-icon">&#9776;</div>
+
                 <div >
                     <nav>
+                    <!-- "show" pour activer le menu hamburger -->
                         <ul class="menu">
                             {% for item in menuItems %}
                                 <li>
                                     <a href="{{ path(item.route) }}" class="{{item.class}}">{{item.label}}</a>
                                 </li>
+                                
                             {% endfor %}
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <div class="dropdown">
+                                    <span class="dropbtn" onclick="OpenCloseMenu(this)">
+                                        <li>
+                                            <span class="menu_Admin active">Admin</span>
+                                        </li>
+                                    </span>
+                                    <div class="dropdown-content">
+                                        <a href="{{ path('app_category_index') }}" class="item-menuH">Catégories</a>
+                                        <a href="{{ path('app_category_new') }}" class="item-menuH">Ajouter une catégorie</a>
+                                        <a href="" class="item-menuH">Utilisateurs</a>
+                                    </div>
+                                </div>
+                            {% endif %}
                             <li>
                                 <button class="button1">Contactez</button>
                             </li>
@@ -57,4 +76,25 @@
         
         
         {% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuIcon = document.querySelector('.menu-icon');
+            const menu = document.querySelector('.menu');
+
+            menuIcon.addEventListener('click', function() {
+                menu.classList.toggle('show');
+            });
+        });
+
+        function OpenCloseMenu(clickedElement) {
+            var menuItem = clickedElement.nextElementSibling;
+
+            if (menuItem.style.display === 'block') {
+                menuItem.style.display = 'none';
+            } else {
+                menuItem.style.display = 'block';
+            }
+        }
+
+    </script>
 </html>

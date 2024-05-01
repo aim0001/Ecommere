@@ -1,243 +1,315 @@
 @font-face {
-	font-family: 'Poppins';
-	src: url('./fonts/Poppins-Light.woff2') format('woff2'),
-		url('./fonts/Poppins-Light.woff') format('woff');
-	font-weight: 300;
-	font-style: normal;
-	font-display: swap;
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Light.woff2') format('woff2'),
+        url('./fonts/Poppins-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-	font-family: 'Poppins';
-	src: url('./fonts/Poppins-Medium.woff2') format('woff2'),
-		url('./fonts/Poppins-Medium.woff') format('woff');
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Medium.woff2') format('woff2'),
+        url('./fonts/Poppins-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-	font-family: 'Poppins';
-	src: url('./fonts/Poppins-Bold.woff2') format('woff2'),
-		url('./fonts/Poppins-Bold.woff') format('woff');
-	font-weight: bold;
-	font-style: normal;
-	font-display: swap;
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Bold.woff2') format('woff2'),
+        url('./fonts/Poppins-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-	font-family: 'Poppins';
-	src: url('./fonts/Poppins-Regular.woff2') format('woff2'),
-		url('./fonts/Poppins-Regular.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Regular.woff2') format('woff2'),
+        url('./fonts/Poppins-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-	font-family: 'Poppins';
-	src: url('./fonts/Poppins-Thin.woff2') format('woff2'),
-		url('./fonts/Poppins-Thin.woff') format('woff');
-	font-weight: 100;
-	font-style: normal;
-	font-display: swap;
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Thin.woff2') format('woff2'),
+        url('./fonts/Poppins-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-	font-family: 'Poppins';
-	src: url('./fonts/Poppins-SemiBold.woff2') format('woff2'),
-		url('./fonts/Poppins-SemiBold.woff') format('woff');
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-SemiBold.woff2') format('woff2'),
+        url('./fonts/Poppins-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
 }
 
-
 @font-face {
-	font-family: 'Wangi';
-	src: url('./fonts/Wangi-vmYRO.woff') format('woff');
-	font-weight: 600;
-	font-style:normal;
-	font-display: swap;
+    font-family: 'Wangi';
+    src: url('./fonts/Wangi-vmYRO.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
 }
 
 
 html {
     scroll-behavior: smooth;
 }
-header{
-	margin-bottom: 2rem;
+
+header {
+    margin-bottom: 2rem;
 }
+
 body {
     font-size: medium;
     font-family: 'Poppins';
     width: 1024px;
-	margin-top: 1rem;
+    margin-top: 1rem;
     margin-left: auto;
     margin-right: auto;
-	text-align: center;
+    text-align: center;
 }
+
 li {
     list-style-type: none;
 }
-a{
+
+a {
     color: black;
     text-decoration: none;
 }
-a:hover{
-	text-decoration: none;
+
+a:hover {
+    text-decoration: none;
 }
-.contain_head{
-	margin-top: 1rem;
-	
+
+.contain_head {
+    margin-top: 1rem;
 }
+
 .contain_nav {
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
-	gap: 0.5rem;
-	background-color: #fff;
-	position: sticky;
-	top: 0;
-	z-index: 9000;
-	height: 80px;
+    gap: 0.5rem;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 9000;
+    height: 80px;
 }
+
 .title {
     font-family: 'Wangi';
     font-weight: 600;
     font-size: 40px;
     display: flex;
 }
+
 .B {
     color: rgb(180, 102, 0);
 }
+
 .E {
     color: rgb(180, 102, 0);
 }
+
 .L {
     color: rgb(180, 102, 0);
 }
+
 .b {
     color: rgba(180, 102, 0, 0.753);
 }
+
 .o {
     color: rgba(180, 102, 0, 0.753);
 }
+
 .i {
     color: rgba(180, 102, 0, 0.753);
 }
+
 .s {
     color: rgba(180, 102, 0, 0.753);
 }
+
 .menu {
     display: flex;
     text-align: center;
     gap: 3rem;
 }
+.menu-icon{
+	display: none;
+}
+
+/* Ajout pour le menu hamburger */
+@media only screen and (max-width: 768px) {
+	body{
+		max-width: min-content;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	header {
+		margin-bottom: 6rem;
+	}
+    .menu {
+        display: none; /* Caché par défaut */
+		flex-direction: column; /* Affichage vertical */
+		position: absolute;
+		gap: 1rem;
+		top: 80px; /* Hauteur de l'icône du menu */
+		left: 0;
+		width: 100%;
+		background-color: rgb(255, 251, 244);
+		border-radius: 5px;
+		z-index: 1000;
+		text-align: center;
+    }
+
+    .menu-icon {
+        display: block; /* Afficher le bouton du menu hamburger sur les smartphones */
+		font-size: 25px;
+		cursor: pointer;
+		margin-left: 10rem;
+		padding-top: 0.3rem;
+		padding-bottom: 0.3rem;
+		padding-left: 0.8rem;
+		padding-right: 0.8rem;
+		border-radius: 5px;
+    }
+
+	.menu-icon:hover {
+		background-color: #fafafa;
+		
+		transition: 500ms ease-in-out;
+	}
+
+    .menu.show {
+		display: flex; /* Afficher lorsque le menu hamburger est cliqué */
+		height: calc(26vh - 80px); /* Calculer la hauteur pour s'adapter à la taille de l'écran */
+		overflow-y: auto; /* Activer le défilement si nécessaire */
+    }
+	
+}
+
 .menu_Accueil {
-	position: relative;
-	transition: all 0.3s ease-in-out;
+    position: relative;
+    transition: all 0.3s ease-in-out;
 }
 
 .menu_Accueil:hover {
-	color: rgb(255, 136, 0);
-	text-decoration: none;
+    color: rgb(255, 136, 0);
+    text-decoration: none;
 }
 
 .menu_Accueil.active {
-	color: rgb(255, 136, 0);
-	margin-right: 0.8rem;
-	margin-left: 0.8rem;
+    color: rgb(255, 136, 0);
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
 }
 
 .menu_Accueil.active::before {
-	content: '[';
-	position: absolute;
-	left: -0.8rem;
+    content: '[';
+    position: absolute;
+    left: -0.8rem;
 }
+
 .menu_Accueil.active::after {
-	content: ']';
-	position: absolute;
-	right: -0.8rem;
+    content: ']';
+    position: absolute;
+    right: -0.8rem;
 }
 
 .menu_Galerie {
-	position: relative;
-	transition: all 0.3s ease-in-out;
+    position: relative;
+    transition: all 0.3s ease-in-out;
 }
 
 .menu_Galerie:hover {
-	color: rgb(255, 136, 0);
-	text-decoration: none;
+    color: rgb(255, 136, 0);
+    text-decoration: none;
 }
 
 .menu_Galerie.active {
-	color: rgb(255, 136, 0);
-	margin-right: 0.8rem;
-	margin-left: 0.8rem;
+    color: rgb(255, 136, 0);
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
 }
 
 .menu_Galerie.active::before {
-	content: '[';
-	position: absolute;
-	left: -0.8rem;
+    content: '[';
+    position: absolute;
+    left: -0.8rem;
 }
+
 .menu_Galerie.active::after {
-	content: ']';
-	position: absolute;
-	right: -0.8rem;
+    content: ']';
+    position: absolute;
+    right: -0.8rem;
 }
 
 .menu_Boutique {
-	position: relative;
-	transition: all 0.3s ease-in-out;
+    position: relative;
+    transition: all 0.3s ease-in-out;
 }
 
 .menu_Boutique:hover {
-	color: rgb(255, 136, 0);
-	text-decoration: none;
+    color: rgb(255, 136, 0);
+    text-decoration: none;
 }
 
 .menu_Boutique.active {
-	color: rgb(255, 136, 0);
-	margin-right: 0.8rem;
-	margin-left: 0.8rem;
+    color: rgb(255, 136, 0);
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
 }
 
 .menu_Boutique.active::before {
-	content: '[';
-	position: absolute;
-	left: -0.8rem;
+    content: '[';
+    position: absolute;
+    left: -0.8rem;
 }
+
 .menu_Boutique.active::after {
-	content: ']';
-	position: absolute;
-	right: -0.8rem;
+    content: ']';
+    position: absolute;
+    right: -0.8rem;
 }
 
 
 .button1 {
-	padding: 0.5rem;
-	cursor: pointer;
-	font-size: 15px;
-	background-color: rgba(255, 136, 0, 0.719);
-	border: none;
-	border-radius: 05px;
-	transition: all 0.5s ease-in-out;
-}
-.button1:hover {
-	background-color: rgba(255, 136, 0, 0.61);
-}
-.slideshow-container {
-	position: relative;
-	max-width: 800px ;
-}
-.img {
-	width: 85%;
-	height: 700px;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 15px;
+    background-color: rgba(255, 136, 0, 0.719);
+    border: none;
+    border-radius: 05px;
+    transition: all 0.5s ease-in-out;
 }
 
-/*BOUTIQUE **/
+.button1:hover {
+    background-color: rgba(255, 136, 0, 0.61);
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 800px;
+}
+
+.img {
+    width: 85%;
+    height: 700px;
+}
 
 .tabs {
     display: flex;
@@ -263,7 +335,6 @@ a:hover{
     background-color: #fafafa;
 }
 
-/* Style actif pour l'onglet sélectionné */
 .active-tab {
     background-color: #fafafa;
     border-bottom: none;
@@ -273,143 +344,193 @@ a:hover{
     display: block;
 }
 
-/* Barre Recherche **/
-
-/* .b_recherche {
-	display: flex;
-	justify-content: space-between;
-	gap: 0.3rem;
+.btn-Ajout {
+    background-color: rgba(255, 136, 0, 0.719);
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    padding-right: 1rem;
+    float: left;
+    margin-top: 1rem;
+    margin-left: 2rem;
 }
 
-.c_recherche {
-	font-size: x-small;
-	width: 120px;
-	height: 30px;
-	
+.lien-Ajout {
+    color: #fff;
+    font-weight: 600;
 }
 
-.btn_recherche {
-	font-size: xx-small;
-	background-color:  rgb(219, 124, 0);
-	cursor: pointer;
-	border: none;
-	color: #fafafa;
-} */
+.lien-Ajout:hover {
+    text-decoration: none;
+    color: aliceblue;
+    cursor: pointer;
+}
 
-
-/* Affichage */
-.btn-Ajout{
-	background-color: rgba(255, 136, 0, 0.719);
-	border: none;
-	border-radius: 5px;
-	padding: 0.5rem;
-	padding-right: 1rem;
-	float: left;
-	margin-top: 1rem;
-	margin-left: 2rem;
-}
-.lien-Ajout{
-	color: #fff;
-	font-weight: 600;
-}
-.lien-Ajout:hover{
-	text-decoration: none;
-	color: aliceblue;
-	cursor: pointer;
-}
 .table {
-	max-width: 1024px;
-	margin-left: auto;
-	margin-right: auto;
-	border-collapse: collapse;
-	color: #404040;
-  }
-  
-  .table th {
-	font-size: 16px;
-	border-bottom: 4px solid rgb(245, 222, 179);
-	padding: 5px 20px;
-	font-weight: 500;
-	width: 194px;
-  }
-  
-  .table td {
-	font-size: 14px;
-	padding: 5px 30px;
-	font-weight: 400;
-	text-align: center;
-  }
-  
-  .table tr {
-	max-width: 1024px;
-	margin-left: auto;
-	margin-right: auto;
-  }
-  
-  .table tr:nth-child(2n) {
-	background-color: #f6f8f8;
-  }
-  
-  .table tr:nth-child(2n) td {
-	border-bottom: 1px solid #e0e0e0;
-	border-top: 1px solid #e0e0e0;
-  }
-  
-/* Ajout */
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    color: #404040;
+}
+
+.table th {
+    font-size: 16px;
+    border-bottom: 4px solid rgb(245, 222, 179);
+    padding: 5px 20px;
+    font-weight: 500;
+    width: 194px;
+}
+
+.table td {
+    font-size: 14px;
+    padding: 5px 30px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.table tr {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table tr:nth-child(2n) {
+    background-color: #f6f8f8;
+}
+
+.table tr:nth-child(2n) td {
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+}
 
 .btn {
-	margin-top: 1rem;
+    margin-top: 1rem;
 }
-.retour{
-	float: left;
-	margin-left: 23rem;
+
+.retour {
+    float: left;
+    margin-left: 23rem;
 }
-.lien-retour{
-	color: rgb(179, 95, 0);
+
+.lien-retour {
+    color: rgb(179, 95, 0);
 }
-.lien-retour:hover{
-	text-decoration: none;
+
+.lien-retour:hover {
+    text-decoration: none;
 }
-.table-lien{
-	font-size: 16px;
+
+.table-lien {
+    font-size: 16px;
 }
-.action{
-	width: 250px;
-	margin-left: auto;
-	margin-right: auto;
-	display: flex;
-	justify-content: center;
-	gap: 2rem;
-	align-items: center;
-	text-align: center;
+
+.action {
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    text-align: center;
 }
-.btn-edit{
-	border: none;
-	border-radius: 5px;
-	font-weight: 500;
-	padding: 0.5rem;
-	background-color: rgb(245, 222, 179);
+
+.btn-edit {
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    padding: 0.5rem;
+    background-color: rgb(245, 222, 179);
 }
-.btn-edit:hover{
-	color: #000000;
-	background-color: rgb(240, 207, 145);
-	text-decoration: none;
+
+.btn-edit:hover {
+    color: #000000;
+    background-color: rgb(240, 207, 145);
+    text-decoration: none;
 }
-.btn-sup{
-	background-color: rgba(255, 98, 98, 0.89);
-	color: #fff;
-	font-weight: 600;
-	border: 1px solid #fff;
-	border-radius: 5px;
-	padding: 0.5rem;
+
+.btn-sup {
+    background-color: rgba(255, 98, 98, 0.89);
+    color: #fff;
+    font-weight: 600;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 0.5rem;
 }
-.btn-sup:hover{
-	cursor: pointer;
-	background-color: rgba(255, 63, 63, 0.89);
+
+.btn-sup:hover {
+    cursor: pointer;
+    background-color: rgba(255, 63, 63, 0.89);
 }
+
 /*Detail */
 
-.Block-btn-show{
-	display: flex;
-	justify-content: space-evenly;
+.Block-btn-show {
+    display: flex;
+    justify-content: space-evenly;
 }
+/* Admin */
+.menu_Admin {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.menu_Admin:hover {
+    color: rgb(116, 116, 255);
+    text-decoration: none;
+}
+
+.menu_Admin.active {
+    color: rgb(133, 133, 255);
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
+}
+
+.menu_Admin.active::before {
+    content: '{';
+    position: absolute;
+    left: -0.8rem;
+}
+
+.menu_Admin.active::after {
+    content: '}';
+    position: absolute;
+    right: -0.8rem;
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+	text-align: start;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+	border-top: 1px solid rgba(0, 0, 0, 0.219);
+  }
+
+  .dropdown-content a:hover {
+    color: rgb(122, 0, 0);
+    transition: 0.5s;
+	background-color: #cfcfcf;
+  }
+  .item-menuH{
+	font-weight: 500;
+  }
