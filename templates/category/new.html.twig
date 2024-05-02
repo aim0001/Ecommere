@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Category{% endblock %}
+{% block title %}Nouvelle Categorie{% endblock %}
 
 {% block body %}
 <span class="retour">
     <a href="{{ path('app_category_index') }}"class="lien-retour">&#8592; Retour</a>
 </span><br/>
-    <h4>Creer categorie</h4><br/>
+    <h4>Ajouter une nouvelle categorie</h4><br/>
 
     {{ include('category/_form.html.twig') }}
     

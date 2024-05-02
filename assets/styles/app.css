@@ -67,6 +67,10 @@ html {
 
 header {
     margin-bottom: 2rem;
+	position: sticky;
+    top: 0;
+    z-index: 9000;
+    height: 80px;
 }
 
 body {
@@ -353,6 +357,7 @@ a:hover {
     float: left;
     margin-top: 1rem;
     margin-left: 2rem;
+	margin-bottom: 5rem;
 }
 
 .lien-Ajout {
@@ -596,4 +601,13 @@ a:hover {
 	color: #000000;
 	background-color: rgb(245, 184, 179);
 	transition: 500ms ease-in;
+  }
+
+  /* Sous Categorie **/
+
+  .block-input{
+	max-width: max-content;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: start;
   }

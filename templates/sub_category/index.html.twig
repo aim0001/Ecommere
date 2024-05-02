@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sous Categories{% endblock %}
+
+{% block body %}
+
+    <h4>Liste des sous categories</h4><br>
+
+    {% include 'layouts/_flash_message.html.twig' %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Catégorie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sub_category in sub_categories %}
+            <tr>
+                <td>{{ sub_category.id }}</td>
+                <td><a href="{{ path('app_sub_category_show', {'id': sub_category.id}) }}"class="table-lien">{{ sub_category.name }}</a></td>
+                <td><a href="{{ path('app_sub_category_show', {'id': sub_category.id}) }}"class="table-lien">{{ sub_category.categorie.name }}</a></td>
+                <td class="action">
+
+                    <a href="{{ path('app_sub_category_edit', {'id': sub_category.id}) }}"class="btn-edit">Modifier</a>
+
+                    {{ include('sub_category/_delete_form.html.twig') }}
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+     <button class="btn-Ajout">
+        <a href="{{ path('app_sub_category_new') }}"class="lien-Ajout">+ Ajouter</a>
+    </button>
+
+{% endblock %}

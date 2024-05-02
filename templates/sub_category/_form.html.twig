@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    <div class="block-input">
+        {{ form_label(form.name, 'Nom') }} {# Définit le libellé du champ 'name' comme 'Nom' #}
+        {{ form_widget(form.name, {'attr':{'class': 'input-field'}}) }}
+        
+        {{ form_label(form.categorie, 'Categorie') }} {# Définit le libellé du champ 'categorie' comme 'Categorie' #}
+        {{ form_widget(form.categorie, {'attr':{'class': 'input-field'}}) }}
+    </div>
+    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}
