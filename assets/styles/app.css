@@ -372,6 +372,14 @@ a:hover {
     margin-right: auto;
     border-collapse: collapse;
     color: #404040;
+	overflow-x: auto;
+}
+
+@media only screen and (max-width: 768px) {
+    .table {
+        overflow-y: auto; /* Activer le défilement horizontal sur les petits écrans */
+    }
+    
 }
 
 .table th {
@@ -384,7 +392,7 @@ a:hover {
 
 .table td {
     font-size: 14px;
-    padding: 5px 30px;
+    padding: 10px 15px;
     font-weight: 400;
     text-align: center;
 }
@@ -426,7 +434,7 @@ a:hover {
 }
 
 .action {
-    width: 250px;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -533,4 +541,59 @@ a:hover {
   }
   .item-menuH{
 	font-weight: 500;
+  }
+
+  /* Table Users **/
+
+  .action .btn-editor{
+	width: 180px;
+  }
+
+  .role{
+	color: rgb(133, 133, 255);
+	font-weight: 600;
+	font-style: oblique;
+  }
+
+  .roles-editeur {
+	color: rgb(255, 136, 0);
+	font-weight: 500;
+  }
+
+  .roles-users {
+	color:#404040;
+	font-weight: 400;
+  }
+
+  .btn-editor{
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 0.5px solid rgba(255, 136, 0, 0.144);
+	background-color: rgba(245, 222, 179, 0.363);
+	border-radius: 10px;
+  }
+
+  .btn-editor:hover{
+	border: 1px solid rgb(255, 136, 0);
+	color: #000000;
+	background-color: rgb(245, 222, 179);
+	transition: 500ms ease-in;
+  }
+
+  .btn-editor-remove{
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background-color: rgba(245, 179, 179, 0.5);
+	border-radius: 10px;
+  }
+
+  .btn-editor-remove:hover{
+	border: 1px solid rgb(255, 81, 0);
+	color: #000000;
+	background-color: rgb(245, 184, 179);
+	transition: 500ms ease-in;
   }
