@@ -47,9 +47,20 @@
                                         </li>
                                     </span>
                                     <div class="dropdown-content">
-                                        <a href="{{ path('app_category_index') }}" class="item-menuH">Catégories</a>
-                                        <a href="{{ path('app_category_new') }}" class="item-menuH">Ajouter une catégorie</a>
-                                        <a href="{{ path('app_user_index') }}" class="item-menuH">Utilisateurs</a>
+                                        <div class="Sous-ensemble-item-menuH">
+                                            <a href="{{ path('app_category_index') }}" class="item-menuH">Catégories</a>
+                                            <a href="{{ path('app_category_new') }}" class="item-menuH">Ajouter une catégorie</a>
+                                        </div>
+                                        <div class="Sous-ensemble-item-menuH">
+                                            <a href="{{ path('app_product_index') }}" class="item-menuH">Produits</a>
+                                        </div>
+                                        <div class="Sous-ensemble-item-menuH">
+                                            <a href="{{ path('app_sub_category_index') }}" class="item-menuH">Sous catégories</a>
+                                            <a href="{{ path('app_sub_category_new') }}" class="item-menuH">Créer une sous catégorie</a>
+                                        </div>
+                                        <div class="Sous-ensemble-item-menuH">
+                                            <a href="{{ path('app_user_index') }}" class="item-menuH">Utilisateurs</a>
+                                        </div>
                                     </div>
                                 </div>
                             {% endif %}

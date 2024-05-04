@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+    <h4>Liste des produits</h4><br>
+
+    {% include 'layouts/_flash_message.html.twig' %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>
+                    {% if product.description|length > 80 %}
+                        {{ product.description|slice(0, 80) }}... <a href="{{ path('app_product_show', {'id': product.id}) }}"class="Lire_la_suite"> Lire_la_suite</a>
+                    {% else %}
+                        {{ product.description }}
+                    {% endif %}
+                </td>
+                <td>{{ product.price }}</td>
+                <td class="action">
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}"class="btn-show">Afficher</a>
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}"class="btn-edit">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+     <button class="btn-Ajout">
+        <a href="{{ path('app_product_new') }}"class="lien-Ajout">+ Ajouter</a>
+    </button>
+{% endblock %}

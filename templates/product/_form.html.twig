@@ -1,0 +1,31 @@
+{{ form_start(form, {'attr': {'class': 'formulaire'}}) }}
+<div class="block-form">
+    <div class="block-input">
+
+        <div class="form-group">
+            <label for="{{ form.name.vars.id }}">Nom</label>
+            {{ form_widget(form.name, {'attr': {'class': 'input-field-product'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.price.vars.id }}">Prix</label>
+            {{ form_widget(form.price, {'attr': {'class': 'input-field-product'}}) }}
+        </div>
+
+    </div>
+    <div class="block-input">
+
+        <div class="form-group">
+            <label for="{{ form.description.vars.id }}">Description</label>
+            {{ form_widget(form.description, {'attr': {'class': 'input-field-product-description'}}) }}
+        </div>
+
+        <div class="form-group-SCate">
+            <label for="{{ form.subCategories.vars.id }}">Sous catégorie</label>
+            {{ form_widget(form.subCategories, {'attr': {'class': 'input-field-product'}}) }}
+        </div>
+
+    </div>
+</div>
+<button class="btn-product">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

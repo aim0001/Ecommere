@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Product{% endblock %}
+
+{% block body %}
+<span class="retour">
+    <a href="{{ path('app_sub_category_index') }}"class="lien-retour">&#8592; Retour</a>
+</span><br><br><br>
+    <h4>Création produit</h4><br>
+
+    {{ include('product/_form.html.twig') }}
+
+{% endblock %}
