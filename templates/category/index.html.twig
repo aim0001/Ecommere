@@ -3,8 +3,12 @@
 {% block title %}Categories{% endblock %}
 
 {% block body %}
-
+    <br>
     <h4>Liste des categories</h4>
+
+    <button class="btn-Ajout">
+        <a href="{{ path('app_category_new') }}"class="lien-Ajout">+ Ajouter</a>
+    </button>
     
     {% include 'layouts/_flash_message.html.twig' %}
     <br/>
@@ -33,9 +37,8 @@
         {% endfor %}
         </tbody>
     </table>
+    {{ knp_pagination_render(categories, 'layouts/pagination.html.twig') }}
 
-    <button class="btn-Ajout">
-        <a href="{{ path('app_category_new') }}"class="lien-Ajout">+ Ajouter</a>
-    </button>
-
+    <br>
+    <br>
 {% endblock %}

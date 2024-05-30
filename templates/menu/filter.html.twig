@@ -8,30 +8,15 @@
         {% endblock %}
 {% block body %}
 <body>
-    <main x-data="{ cartCount: 0, products: {{ products|json_encode|raw }}, 
-    productStates: JSON.parse(localStorage.getItem('productStates') || '{}'),
-        init() {
-            this.cartCount = Object.values(this.productStates).filter(state => state).length;
-        },
-        toggleCart(productId) {
-            if (!this.productStates[productId]) {
-                this.productStates[productId] = false;
-            }
-            this.productStates[productId] = !this.productStates[productId];
-            this.cartCount += this.productStates[productId] ? 1 : -1;
-            localStorage.setItem('productStates', JSON.stringify(this.productStates));
-        }
-    }" x-init="init()" class="boutique">
-
-    
+    <main class="boutique">
     
         <div class="tabs">
             <div class="tab active-tab" onclick="showContent('achats')">Prix et Ventes</div>
-            <div class="tab" onclick="showContent('paniers')">PANIERS <span x-text="cartCount" class="notif"></span></div>
+            <div class="tab" onclick="showContent('paniers')">PANIERS</div>
         </div>
     
         <div class="tab-content active-content" id="achats">
-            <h4>Produits</h4>
+            <h4 style = " text-align : start;  margin-left : 1rem">{{ subCategory.name }}</h4>
             <br/>
             <div class="B_block">
                 {% for product in products %}
@@ -45,8 +30,7 @@
                                 <p class="B_description">{{ product.description|slice(0,20) }} ..</p>
                                 | <h5 class="B_price" style = "color : rgb(180, 102, 0)">{{ product.price}} FCFA</h5>
                             </span>
-                            <a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})"
-                               :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien" x-text="productStates[{{ product.id }}] ? 'Retirer au panier' : 'Ajouter au panier'"></a>
+                            <a href="#" class="B_lien">Ajouter au panier</a>
                         </div>
                     </a>
                 </div>
@@ -59,12 +43,6 @@
         <div class="tab-content" id="paniers">
                 
         </div>
-        
-
-            {{ knp_pagination_render(products, 'layouts/pagination.html.twig') }}
-
-        
-
     </main>
 </body>
 <script>

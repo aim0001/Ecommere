@@ -28,12 +28,19 @@
                 <th>Price</th>
                 <td>{{ product.price }}</td>
             </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ product.stock }}</td>
+            </tr>
         </tbody>
     </table>
     <br/>
     <div class="Block-btn-show">
         <div class="block-btn-edit">
             <a href="{{ path('app_product_edit', {'id': product.id}) }}"class="btn-edit">Modifier</a>
+        </div>
+         <div class="block-btn-edit">
+            <a href="{{ path('app_product_stock_add_history', {'id': product.id}) }}"class="btn-stock">Afficher l'historique d ajout</a>
         </div>
         {{ include('product/_delete_form.html.twig') }}
     </div>

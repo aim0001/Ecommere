@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+<main class="Block">
+    <span class="retour">
+        <a href="{{ path('app_product_index') }}"class="lien-retour">&#8592; Revenir à la liste</a>
+    </span>
+    <br/>
+    <h4>Produit</h4>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Qte Stock</th>
+                <th>Date d'ajout</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for productAdded in productsAdded %}
+                <tr>
+                    <td>{{ productAdded.id }}</td>
+                    <td>{{ productAdded.qte }}</td>
+                    <td>{{ productAdded.createdAt|date('d-m-Y H:i:s') }}</td>
+                </tr>
+                {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+            {% endfor %}
+                
+        </tbody>
+    </table>
+</main>
+{% endblock %}

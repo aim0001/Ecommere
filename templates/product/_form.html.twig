@@ -11,6 +11,20 @@
             <label for="{{ form.price.vars.id }}">Prix</label>
             {{ form_widget(form.price, {'attr': {'class': 'input-field-product'}}) }}
         </div>
+    {% if button_label != 'Mise à jour' %}
+        <div class="form-group">
+            <label for="{{ form.stock.vars.id }}">Stock</label>
+            {{ form_widget(form.stock, {'attr': {'class': 'input-field-product'}}) }}
+        </div>
+    {% else %}
+        
+    {% endif %}
+        
+
+        <div class="form-group">
+            <label for="{{ form.image.vars.id }}">Image</label>
+            {{ form_widget(form.image, {'attr': {'class': 'input-field-product'}}) }}
+        </div>
 
     </div>
     <div class="block-input">

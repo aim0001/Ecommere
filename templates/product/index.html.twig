@@ -3,10 +3,15 @@
 {% block title %}Produits{% endblock %}
 
 {% block body %}
-    <h4>Liste des produits</h4><br>
+
+    <br>
+    <h4>Liste des produits</h4>
 
     {% include 'layouts/_flash_message.html.twig' %}
 
+    <button class="btn-Ajout">
+        <a href="{{ path('app_product_new') }}"class="lien-Ajout">+ Ajouter</a>
+    </button>
     <table class="table">
         <thead>
             <tr>
@@ -14,6 +19,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Stock</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -30,9 +36,19 @@
                     {% endif %}
                 </td>
                 <td>{{ product.price }}</td>
-                <td class="action">
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}"class="btn-show">Afficher</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}"class="btn-edit">Modifier</a>
+                <td>
+                    {% if product.stock > 0 %}
+                        {{ product.stock }}
+                    {% else %}
+                        <span class = "error-message">Stock épuisé</span>
+                    {% endif %}
+                </td>
+                <td class="action_P">
+                    <div class="sous-action">
+                        <a href="{{ path('app_product_show', {'id': product.id}) }}"class="btn-show">Afficher</a>
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}"class="btn-edit">Modifier</a>
+                    </div>
+                    <a href="{{ path('app_product_stock_add', {'id': product.id}) }}"class="btn-stock">+ Ajouter le stock</a>
                 </td>
             </tr>
         {% else %}
@@ -42,8 +58,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-     <button class="btn-Ajout">
-        <a href="{{ path('app_product_new') }}"class="lien-Ajout">+ Ajouter</a>
-    </button>
+    {{ knp_pagination_render(products, 'layouts/pagination.html.twig') }}
+    <br>
 {% endblock %}

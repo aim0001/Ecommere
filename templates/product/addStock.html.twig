@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Ajouter le stock {% endblock %}
+
+{% block body %}
+<span class="retour">
+    <a href="{{ path('app_product_index') }}"class="lien-retour">&#8592; Retour</a>
+</span><br/>
+    <h4>Ajouter le stock pour : {{product.name}}</h4><br>
+
+ {% include 'layouts/_flash_message.html.twig' %}
+    {{ form_start(form) }}
+        {{ form_row(form.qte, {'attr' : {'class':'input-field'}}) }}
+        <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+    {{ form_end(form) }}
+{% endblock %}

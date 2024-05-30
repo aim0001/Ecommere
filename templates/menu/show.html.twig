@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Boutique{% endblock %}
+
+{% block body %}
+<body>
+    <main x-data="{ cartCount: 0, products: {{ products|json_encode|raw }}, 
+    productStates: JSON.parse(localStorage.getItem('productStates') || '{}'),
+        init() {
+            this.cartCount = Object.values(this.productStates).filter(state => state).length;
+        },
+        toggleCart(productId) {
+            if (!this.productStates[productId]) {
+                this.productStates[productId] = false;
+            }
+            this.productStates[productId] = !this.productStates[productId];
+            this.cartCount += this.productStates[productId] ? 1 : -1;
+            localStorage.setItem('productStates', JSON.stringify(this.productStates));
+        }
+    }" x-init="init()">
+        <div class="tabs">
+            <div class="tab active-tab" onclick="showContent('achats')">Prix et Ventes</div>
+            <div class="tab" onclick="showContent('paniers')">PANIERS <span x-text="cartCount" class="notif"></span></div>
+        </div>
+    
+        <div class="tab-content active-content" id="achats">
+            <div class="B_block_product">
+                <div class="B_block-image_product">
+                    <img src="{{ asset('uploads/images/'~product.image) }}" class="B_image_product" alt="..."/>
+                </div>
+                <div class="B_sousBlock">
+                    <div class="B_sousBlock_product">
+                        <h2 class="B_price" style = "color : rgb(180, 102, 0); margin-left : 2rem">{{ product.price}} FCFA</h2>
+                        <h3 class="B_nom">{{ product.name }}</h3>
+                        <p class="B_description_product">{{ product.description }} ..</p>
+                        <a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})"
+                               :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien_product">Ajouter au panier</a>
+                    </div>
+                </div>
+            </div><br><br>
+             <h2 style ="text-align : start">Dernière mise à jourt</h2><br>
+            <div class="B_block">
+                {% for product in products %}
+                
+                <div class="B_block-image">
+                    <a href="{{ path('app_home_product_show',{'id':product.id}) }}" class="B_block-lien">
+                        <img src="{{ asset('uploads/images/'~product.image) }}" class="B_image" alt="..."/>
+                        <div class="B_sousBlock">
+                            <h6 class="B_nom">{{ product.name }}</h6>
+                            <span  style = "display : flex; gap : 10px">
+                                <p class="B_description">{{ product.description|slice(0,20) }} ..</p>
+                                | <h5 class="B_price" style = "color : rgb(180, 102, 0)">{{ product.price}} FCFA</h5>
+                            </span>
+                            <a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})"
+                               :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien"x-text="productStates[{{ product.id }}] ? 'Retirer au panier' : 'Ajouter au panier'">Ajouter au panier</a>
+                        </div>
+                    </a>
+                </div>
+
+                {% endfor %}
+            </div>            
+        </div>
+        <!-- Contenu spécifique pour l'onglet 'Paniers' -->
+        <div class="tab-content" id="paniers">
+            <!-- Ajoutez ici le contenu spécifique que vous souhaitez afficher pour les PANIERS -->
+            <!-- Par exemple, la liste des produits dans le panier ou un formulaire de commande -->
+        </div>
+    </main>
+</body>
+
+{% endblock %}
+
+{% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+
+    <script>
+        // JavaScript pour le fonctionnement des onglets
+        function showContent(tabId) {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => tab.classList.remove('active-tab'));
+            tabContents.forEach(content => content.classList.remove('active-content'));
+
+            const selectedTab = document.getElementById(tabId);
+            selectedTab.classList.add('active-content');
+
+            const correspondingTab = Array.from(tabs).find(tab => tab.getAttribute('onclick').includes(tabId));
+            if (correspondingTab) {
+                correspondingTab.classList.add('active-tab');
+            }
+        }
+
+        // Image defilement
+        let slideIndex = 0;
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 5000); // Change d'image toutes les 2 secondes (2000 ms)
+        }
+
+        // Démarrez le diaporama lorsque la page est chargée
+        window.onload = function () {
+            showSlides();
+        };
+    </script>
+{% endblock %}
