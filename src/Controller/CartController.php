@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -49,6 +50,12 @@ class CartController extends AbstractController
             ];
         }
 
+        // $cartPagination = $paginator->paginate(
+        //     $cartWithData,
+        //     $request->query->getInt('cartPage',1),
+        //     4
+        // );
+
         $total = array_sum(array_map(function($item){
             return $item['product']->getPrice() * $item['quantity'];
         },$cartWithData));
@@ -56,6 +63,7 @@ class CartController extends AbstractController
         // dd($cartWithData);
 
         return $this->render('menu/boutique.html.twig', [
+            // 'itemPaginate' => $cartPagination,
             'items' => $cartWithData,
             'total' => $total,
             'menuItems' => $menuItems,
@@ -66,8 +74,8 @@ class CartController extends AbstractController
 
 
     //Ajouter un element au panier
-    #[Route('/cart/add/{id}', name: 'app_cart_new', methods:['GET'])]
-    public function addToCart(int $id, SessionInterface $session):Response
+    #[Route('/cart/add/{id}/', name: 'app_cart_new', methods:['GET'])]
+    public function addToCart(int $id, SessionInterface $session, Request $request):Response
     {
 
         $cart = $session->get('cart',[]);
@@ -79,6 +87,45 @@ class CartController extends AbstractController
 
         $session->set('cart',$cart);
 
+        $redirect = $request->query->get('redirect', null);
+            if ($redirect) {
+                return $this->redirect($redirect);
+            }
+
+        return $this->redirectToRoute('app_cart');
+
+    }
+
+    //Supprimer un produit
+    #[Route('/cart/remove/{id}/', name: 'app_cart_product_remove', methods: ['GET'])]
+    public function removeToCart(int $id, SessionInterface $session, Request $request): Response
+    {
+        $cart = $session->get('cart', []);
+        
+        if (!empty($cart[$id])) {
+            
+                unset($cart[$id]);  
+            
+        }
+
+        $session->set('cart', $cart);
+
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(['status' => 'success', 'productId' => $id]);
+        }
+
+        return $this->redirectToRoute('app_cart');
+    }
+
+    //Supprimer tout les produits ajouté
+    #[Route('/cart/remove/', name: 'app_cart_remove', methods: ['GET'])]
+    public function removeFromCart(SessionInterface $session, Request $request): Response
+    {
+        $session->set('cart',[]);
+
+        if ($request->isXmlHttpRequest()) {
+        return new JsonResponse(['status' => 'success']);
+    }
 
         return $this->redirectToRoute('app_cart');
     }

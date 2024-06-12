@@ -11,6 +11,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Attribute\Route;
 
 class MenuController extends AbstractController
@@ -52,7 +53,7 @@ class MenuController extends AbstractController
 
 
     #[Route('/boutique', name: 'menu_Boutique', methods: ['GET'])]
-    public function boutique(ProductRepository $productRepository, CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator): Response
+    public function boutique(ProductRepository $productRepository, CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator, Session $session): Response
     {
 
         $data = $productRepository->findBy([],['id'=>"DESC"]);
@@ -69,7 +70,31 @@ class MenuController extends AbstractController
         ];
 
 
+        $cart = $session->get('cart',[]);
+        $cartWithData = [];
+
+        foreach ($cart as $id => $quantity) {
+            $cartWithData[] = [
+                'product' => $productRepository->find($id),
+                'quantity' => $quantity
+            ];
+        }
+
+        // $cartPagination = $paginator->paginate(
+        //     $cartWithData,
+        //     $request->query->getInt('cartPage',1),
+        //     4
+        // );
+
+        $total = array_sum(array_map(function($item){
+            return $item['product']->getPrice() * $item['quantity'];
+        },$cartWithData));
+
+
         return $this->render('menu/boutique.html.twig', [
+            // 'itemPaginate' => $cartPagination,
+            'items' => $cartWithData,
+            'total' => $total,
             'menuItems' => $menuItems,
             'products' => $products,
             'categories'=> $categoryRepository->findAll()
@@ -77,7 +102,7 @@ class MenuController extends AbstractController
     }
 
     #[Route('/home/product/{id}/show', name: 'app_home_product_show', methods: ['GET'])]
-    public function show(Product $product, ProductRepository $productRepository, CategoryRepository $categoryRepository     ): Response
+    public function show(Product $product, ProductRepository $productRepository, CategoryRepository $categoryRepository, Session $session): Response
     {
 
         $lastProducts = $productRepository->findBy([],['id'=> 'DESC'], 5);
@@ -88,7 +113,23 @@ class MenuController extends AbstractController
             ['label'=>'Boutique', 'route'=>'menu_Boutique', 'class'=> 'menu_Boutique active']
         ];
 
+        $cart = $session->get('cart',[]);
+        $cartWithData = [];
+
+        foreach ($cart as $id => $quantity) {
+            $cartWithData[] = [
+                'product' => $productRepository->find($id),
+                'quantity' => $quantity
+            ];
+        }
+
+        $total = array_sum(array_map(function($item){
+            return $item['product']->getPrice() * $item['quantity'];
+        },$cartWithData));
+
         return $this->render('menu/show.html.twig', [
+            'items' => $cartWithData,
+            'total' => $total,
             'menuItems' => $menuItems,
             'product' => $product,
             'categories'=> $categoryRepository->findAll(),
@@ -98,7 +139,7 @@ class MenuController extends AbstractController
 
 
     #[Route('/home/product/subCategory/{id}/filter', name: 'app_home_product_filter', methods: ['GET'])]
-    public function filter($id, SubCategoryRepository $subCategoryRepository, CategoryRepository $categoryRepository): Response
+    public function filter($id, SubCategoryRepository $subCategoryRepository, CategoryRepository $categoryRepository, ProductRepository $productRepository, Session $session): Response
     {
 
         $products = $subCategoryRepository->find($id)->getProducts();
@@ -110,7 +151,23 @@ class MenuController extends AbstractController
             ['label'=>'Boutique', 'route'=>'menu_Boutique', 'class'=> 'menu_Boutique active']
         ];
 
+        $cart = $session->get('cart',[]);
+        $cartWithData = [];
+
+        foreach ($cart as $id => $quantity) {
+            $cartWithData[] = [
+                'product' => $productRepository->find($id),
+                'quantity' => $quantity
+            ];
+        }
+
+        $total = array_sum(array_map(function($item){
+            return $item['product']->getPrice() * $item['quantity'];
+        },$cartWithData));
+
         return $this->render('menu/filter.html.twig', [
+            'items' => $cartWithData,
+            'total' => $total,
             'menuItems' => $menuItems,
             'products' => $products,
             'categories'=> $categoryRepository->findAll(),
