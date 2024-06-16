@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}City index{% endblock %}
+
+{% block body %}
+
+    <br>
+    <h4>Listes des villes</h4>
+    <br>
+
+    {% include 'layouts/_flash_message.html.twig' %}
+
+    <button class="btn-Ajout">
+        <a href="{{ path('app_city_new') }}">+ Ajouter</a>
+    </button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>ShippingCost</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for city in cities %}
+            <tr>
+                <td>{{ city.id }}</td>
+                <td>{{ city.name }}</td>
+                <td>{{ city.shippingCost }}</td>
+                <td style = "gap : 2rem">
+                    <a href="{{ path('app_city_show', {'id': city.id}) }}" style = "border-radius : 5px; padding : 8px 12px; background-color : #3498db; color : black">Afficher</a>
+                    <a href="{{ path('app_city_edit', {'id': city.id}) }}"class="btn-edit">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}

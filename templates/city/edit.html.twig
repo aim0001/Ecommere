@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit City
+{% endblock %}
+
+{% block body %}
+	<h4>Modifier la ville</h4>
+	<br>
+	{{ include('city/_form.html.twig', {'button_label': 'Update'}) }}
+	<br>
+	{{ include('city/_delete_form.html.twig') }}
+{% endblock %}

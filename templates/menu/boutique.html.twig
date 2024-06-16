@@ -17,12 +17,6 @@
         init() {
             this.cartCount = Object.values(this.productStates).filter(state => state).length;
         },
-        showLoadingIndicator() {
-            document.getElementById('loading-indicator').style.display = 'flex';
-        },
-        hideLoadingIndicator() {
-            document.getElementById('loading-indicator').style.display = 'none';
-        },
         async toggleCart(productId) {
             if (!this.productStates[productId]) {
                 this.productStates[productId] = false;
@@ -166,7 +160,7 @@
 
                     <div style="display : flex; gap : 2rem; margin-left : 2rem; align-item : center">
                         <a href="{{ path('app_cart_remove') }}" @click.prevent="clearCart()" style="background-color : rgba(255, 63, 63, 0.89); padding : 6px 10px; border-radius : 5px; color : white">Vider votre panier</a>
-                        <a href="#" style="background-color : rgba(180, 102, 0, 0.753); padding : 8px 12px; border-radius : 5px; color : white; border : 2px solid #40404035">Valider la conmmande</a>
+                        <a href="{{ path('app_commande') }}" style="background-color : rgba(180, 102, 0, 0.753); padding : 8px 12px; border-radius : 5px; color : white; border : 2px solid #40404035">Valider la conmmande</a>
                     </div>
                  {% endif %}   
 				
