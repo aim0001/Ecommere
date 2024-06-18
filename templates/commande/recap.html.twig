@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Récapitulatif de Commande{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Récapitulatif de votre commande</h2>
+    <h4>Informations de la commande</h4>
+    <p>Nom: {{ commande.firstName }} {{ commande.lastName }}</p>
+    <p>Adresse: {{ commande.adresse }}</p>
+    <p>Ville: {{ commande.city.name }}</p>
+    <p>Téléphone: {{ commande.phone }}</p>
+    <h4>Produits commandés</h4>
+    <ul>
+        {% for item in cartWithData %}
+            <li>{{ item.product.name }} - {{ item.quantity }} x {{ item.product.price }} FCFA</li>
+        {% endfor %}
+    </ul>
+    <h4>Total des produits: {{ total }} FCFA</h4>
+    <h4>Frais de livraison: {{ commande.city.shippingCost }} FCFA</h4>
+    <h4>Montant total à payer: {{ total + commande.city.shippingCost }} FCFA</h4>
+    <a href="{{ path('menu_Boutique') }}" class="btn btn-primary">Confirmer la commande</a>
+</div>
+{% endblock %}

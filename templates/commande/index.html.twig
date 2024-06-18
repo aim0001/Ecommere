@@ -1,84 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commande Info
-{% endblock %}
+{% block title %}Commande Info{% endblock %}
 
 {% block body %}
-	<div class="container">
-		<div class="" style="text-align : start; display : flex; gap : 3rem">
-			<div class="col-8">
-				<br>
-				<h4 style="margin-left : 5rem">Vérification</h4>
-				<br>
-				{{ form_start(form) }}
-				{{ form_widget(form) }}
-				<br>
-				<input type="submit" value="continuer" class="btn btn-outline-primary">
+<div class="container">
+    <div class="" style="text-align : start; display : flex; gap : 3rem">
+        <div class="col-8">
+            <br>
+            <h4 style="margin-left : 5rem">Vérification</h4>
+            <br>
+            {{ form_start(form, { action: path('app_commande_prepare') }) }}
+            {{ form_widget(form) }}
+            <br>
+            <input type="submit" value="continuer" class="btn btn-outline-primary">
+            {{ form_end(form) }}
+        </div>
+        <div class="col-4">
+            <br><br><br><br>
+            <span>Montant à payer:<br><br></span>
+            <h4 style="color : rgba(255, 136, 0, 0.719)">
+                <span id="card-price">{{ total }}</span>
+                FCFA
+            </h4><br><br>
+            <span>Frais de livraison<br><br></span>
+            <h4>
+                <span id="shippingCost"></span>
+                FCFA
+            </h4><br><br>
+            <span>Montant total à payer<br><br></span>
+            <h2 style="color : #3498db">
+                <span class="total-price"></span>
+                FCFA
+            </h2>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
 
-				{{ form_end(form) }}
-			</div>
-			<div class="col-4">
-				<br><br><br><br>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function () {
+    const citySelector = $('#commande_city');
+    const cityValue = citySelector.val();
+    const url = `http://127.0.0.1:8000/city/${cityValue}/shipping/cost/`;
 
-				<span>Montant à payer:
-					<br><br></span>
-				<h4 style="color : rgba(255, 136, 0, 0.719)">
-					<span id="card-price">{{ total }}</span>
-					FCFA
-				</h4><br><br>
+    function ajaxRequest(url) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (response) {
+                const newResponse = JSON.parse(response);
+                if (parseInt(newResponse.status) === 200) {
+                    $("#shippingCost").text(newResponse.content);
+                    const cardPrice = parseInt($("#card-price").text());
+                    const shippingCost = parseInt($("#shippingCost").text());
+                    $('.total-price').text(cardPrice + shippingCost);
+                }
+            },
+            error: function (xhr, status, error) {}
+        });
+    }
 
-				<span>Frais de livraison<br><br></span>
-				<h4>
-					<span id="shippingCost"></span>
-					FCFA
-				</h4><br><br>
+    ajaxRequest(url);
 
-				<span>Montant total à payer<br><br></span>
-				<h2 style="color : #3498db">
-					<span class="total-price"></span>
-					FCFA
-				</h2>
-			</div>
-		</div>
-	</div>
-	<br><br><br><br>
-
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-	<script>
-		$(document).ready(function () {
-const citySelector = $('#commande_city');
-const cityValue = citySelector.val();
-
-const url = `http://127.0.0.1:8000/city/${cityValue}/shipping/cost/`;
-
-function ajaxRequest(url) {
-$.ajax({
-url: url,
-type: 'GET',
-success: function (response) {
-const newResponse = JSON.parse(response)
-if (parseInt(newResponse.status) === 200) { // console.log(newResponse.status)
-$("#shippingCost").text(newResponse.content)
-
-const cardPrice = parseInt($("#card-price").text())
-const shippingCost = parseInt($("#shippingCost").text())
-
-$('.total-price').text(cardPrice + shippingCost)
-}
-},
-error: function (xhr, status, error) {}
-})
-}
-
-ajaxRequest(url)
-
-citySelector.on('change', function () {
-const urlUpdate = `http://127.0.0.1:8000/city/${
-$(this).val()
-}/shipping/cost/` // Recuperer l id selectionner
-ajaxRequest(urlUpdate)
-})
-})
-	</script>
+    citySelector.on('change', function () {
+        const urlUpdate = `http://127.0.0.1:8000/city/${$(this).val()}/shipping/cost/`;
+        ajaxRequest(urlUpdate);
+    });
+});
+</script>
 {% endblock %}

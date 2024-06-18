@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Commandes{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Liste des commandes</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
+                <th>Date</th>
+                <th>Détails</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commande in commandes %}
+                <tr>
+                    <td>{{ commande.firstName }} {{ commande.lastName }}</td>
+                    <td>{{ commande.adresse }}</td>
+                    <td>{{ commande.city.name }}</td>
+                    <td>{{ commande.phone }}</td>
+                    <td>{{ commande.createdAt|date('d/m/Y H:i') }}</td>
+                    <td><a href="{{ path('admin_commande_detail', {'id': commande.id}) }}" class="btn btn-info">Voir</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
