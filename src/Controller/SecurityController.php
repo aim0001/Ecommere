@@ -5,17 +5,20 @@ namespace App\Controller;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
-{
+{   
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepository): Response
+    public function login(AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepository, SessionInterface $session): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+
+        // Vider le panier à chaque connexion
+        $session->remove('cart');
+        $session->remove('productStates');
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -33,7 +36,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): void
+    public function logout(SessionInterface $session): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }

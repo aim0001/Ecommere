@@ -43,17 +43,18 @@ class Product
     #[ORM\OneToMany(targetEntity: AddProductHistory::class, mappedBy: 'product', orphanRemoval: true)]
     private Collection $addProductHistories;
 
+
     /**
-     * @var Collection<int, Commande>
+     * @var Collection<int, Purchases>
      */
-    #[ORM\ManyToMany(targetEntity: Commande::class, mappedBy: 'products')]
-    private Collection $commandes;
+    #[ORM\OneToMany(targetEntity: Purchases::class, mappedBy: 'product')]
+    private Collection $purchases;
 
     public function __construct()
     {
         $this->subCategories = new ArrayCollection();
         $this->addProductHistories = new ArrayCollection();
-        $this->commandes = new ArrayCollection();
+        $this->purchases = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,29 +175,31 @@ class Product
 
         return $this;
     }
-
     /**
-     * @return Collection<int, Commande>
+     * @return Collection<int, Purchases>
      */
-    public function getCommandes(): Collection
+    public function getPurchases(): Collection
     {
-        return $this->commandes;
+        return $this->purchases;
     }
 
-    public function addCommande(Commande $commande): static
+    public function addPurchase(Purchases $purchase): static
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
-            $commande->addProduct($this);
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases->add($purchase);
+            $purchase->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeCommande(Commande $commande): static
+    public function removePurchase(Purchases $purchase): static
     {
-        if ($this->commandes->removeElement($commande)) {
-            $commande->removeProduct($this);
+        if ($this->purchases->removeElement($purchase)) {
+            // set the owning side to null (unless already changed)
+            if ($purchase->getProduct() === $this) {
+                $purchase->setProduct(null);
+            }
         }
 
         return $this;

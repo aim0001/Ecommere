@@ -67,6 +67,28 @@
                                     </div>
                                 </div>
                             {% endif %}
+                            {% if is_granted("ROLE_EDITOR") %}
+                                <div class="dropdown">
+                                    <span class="dropbtn" onclick="OpenCloseMenu(this)">
+                                        <li>
+                                            <span class="menu_Admin active" style = "color : rgb(255, 136, 0)">Editeur</span>
+                                        </li>
+                                    </span>
+                                    <div class="dropdown-content">
+                                        <div class="Sous-ensemble-item-menuH">
+                                            <a href="{{ path('app_category_index') }}" class="item-menuH">Catégories</a>
+                                            <a href="{{ path('app_category_new') }}" class="item-menuH">Ajouter une catégorie</a>
+                                        </div>
+                                        <div class="Sous-ensemble-item-menuH">
+                                            <a href="{{ path('app_product_index') }}" class="item-menuH">Produits</a>
+                                        </div>
+                                        <div class="Sous-ensemble-item-menuH">
+                                            <a href="{{ path('app_sub_category_index') }}" class="item-menuH">Sous catégories</a>
+                                            <a href="{{ path('app_sub_category_new') }}" class="item-menuH">Créer une sous catégorie</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                             <li>
                                 <button class="button1">Contactez</button>
                             </li>
@@ -82,15 +104,15 @@
                             <div class="account-menu">
                                 <ul>
                                     <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
-                                    <li><a href="{{ path('app_login') }}" class="logout-link">Se connecter</a></li>
+                                    <li><a href="{{ path('app_login') }}" class="login-link">Se connecter</a></li>
                                 </ul>
                             </div>
                     {% else %}
                         <div class="account-menu">
                             <ul>
-                                <li><a href="#">Profil</a></li>
-                                <li><a href="{{ path('app_login') }}">se connecté</a></li>
-                                <li><a href="{{ path('app_logout') }}">se déconnecté</a></li>
+                                {# <li><a href="#">Profil</a></li> #}
+                                <li><a href="{{ path('app_login') }}"class="login-link">se connecté</a></li>
+                                <li><a href="{{ path('app_logout') }}"class="logout-link">se déconnecté</a></li>
                             </ul>
                         </div>
                     {% endif %}
@@ -132,6 +154,23 @@
             menuIcon.addEventListener('click', function() {
                 menu.classList.toggle('show');
             });
+
+            const logoutLink = document.querySelector('a.logout-link');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', function() {
+                    localStorage.removeItem('productStates');
+                    localStorage.removeItem('cartCount');
+                });
+            }
+
+            // Assume the login link has a class 'login-link' or similar
+            const loginLink = document.querySelector('a.login-link');
+            if (loginLink) {
+                loginLink.addEventListener('click', function() {
+                    localStorage.removeItem('productStates');
+                    localStorage.removeItem('cartCount');
+                });
+            }
         });
 
         function OpenCloseMenu(clickedElement) {
@@ -142,13 +181,7 @@
             } else {
                 menuItem.style.display = 'block';
             }
-            
         }
-
-
-
-        // Button pour la connection
-
 
         function toggleAccountMenu() {
             const accountToggle = document.querySelector('.toggle-account-menu');
@@ -158,26 +191,20 @@
                 accountMenu.classList.toggle('active');
             });
 
-            // Fermer le menu lorsque l'utilisateur clique en dehors du menu
             window.addEventListener('click', function(event) {
                 if (!accountToggle.contains(event.target) && !accountMenu.contains(event.target)) {
                     accountMenu.classList.remove('active');
                 }
             });
 
-            // Empêcher la propagation du clic à partir du menu lui-même
             accountMenu.addEventListener('click', function(event) {
                 event.stopPropagation();
             });
         }
 
-        // Appeler la fonction pour gérer le menu Account à chaque chargement de page
         document.addEventListener('DOMContentLoaded', function() {
             toggleAccountMenu();
         });
-
-
-
 
         document.addEventListener('DOMContentLoaded', function() {
             const logoutLink = document.querySelector('a.logout-link');
@@ -187,9 +214,5 @@
                 });
             }
         });
-
-
-
-
     </script>
 </html>

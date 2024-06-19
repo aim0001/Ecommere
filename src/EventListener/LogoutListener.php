@@ -17,5 +17,6 @@ class LogoutListener
     {
         // Vider le panier
         $this->session->remove('cart');
+        $this->session->remove('productStates');
     }
 }

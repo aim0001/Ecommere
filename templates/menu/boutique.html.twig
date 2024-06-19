@@ -11,63 +11,64 @@
 {% block body %}
 	<body>
 		<main x-data="{
-        cartCount: 0,
-        products: {{ products|json_encode|raw }},
-        productStates: JSON.parse(localStorage.getItem('productStates') || '{}'),
-        init() {
-            this.cartCount = Object.values(this.productStates).filter(state => state).length;
-        },
-        async toggleCart(productId) {
-            if (!this.productStates[productId]) {
-                this.productStates[productId] = false;
-            }
-            this.productStates[productId] = !this.productStates[productId];
-            this.cartCount += this.productStates[productId] ? 1 : -1;
-            localStorage.setItem('productStates', JSON.stringify(this.productStates));
-
-            const addUrl = '{{ path('app_cart_new', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
-            const removeUrl = '{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
-
-            const url = this.productStates[productId] ? addUrl : removeUrl;
-
-            try {
-                await fetch(url, { method: 'GET' });
-                this.refreshCart();
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        },
-        async refreshCart() {
-            const response = await fetch('{{ path('app_cart') }}', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const newCartContent = doc.querySelector('#paniers').innerHTML;
-            document.querySelector('#paniers').innerHTML = newCartContent;
-        },
-        async clearCart() {
-            try {
-                await fetch('{{ path('app_cart_remove') }}', { method: 'GET' });
-                this.productStates = {};
-                localStorage.setItem('productStates', JSON.stringify(this.productStates));
-                this.cartCount = 0;
-                showContent('achats');
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        },
-        async removeFromCart(productId) {
-            try {
-                await fetch('{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
-                this.productStates[productId] = false;
-                localStorage.setItem('productStates', JSON.stringify(this.productStates));
-                this.cartCount -= 1;
-                this.refreshCart();
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-    }" x-init="init()" class="boutique">
+						        cartCount: 0,
+						        products: {{ products|json_encode|raw }},
+						        productStates: JSON.parse(localStorage.getItem('productStates') || '{}'),
+						        init() {
+						            this.cartCount = Object.values(this.productStates).filter(state => state).length;
+						        },
+						        async toggleCart(productId) {
+						            if (!this.productStates[productId]) {
+						                this.productStates[productId] = false;
+						            }
+						            this.productStates[productId] = !this.productStates[productId];
+						            this.cartCount += this.productStates[productId] ? 1 : -1;
+						            localStorage.setItem('productStates', JSON.stringify(this.productStates));
+			
+						            const addUrl = '{{ path('app_cart_new', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
+						            const removeUrl = '{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
+			
+						            const url = this.productStates[productId] ? addUrl : removeUrl;
+			
+						            try {
+						                await fetch(url, { method: 'GET' });
+						                this.refreshCart();
+						            } catch (error) {
+						                console.error('Error:', error);
+						            }
+						        },
+						        async refreshCart() {
+						            const response = await fetch('{{ path('app_cart') }}', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+						            const html = await response.text();
+						            const parser = new DOMParser();
+						            const doc = parser.parseFromString(html, 'text/html');
+						            const newCartContent = doc.querySelector('#paniers').innerHTML;
+						            document.querySelector('#paniers').innerHTML = newCartContent;
+						        },
+						        async clearCart() {
+						            try {
+						                await fetch('{{ path('app_cart_remove') }}', { method: 'GET' });
+						                this.productStates = {};
+						                localStorage.setItem('productStates', JSON.stringify(this.productStates));
+						                this.cartCount = 0;
+										this.refreshCart();
+						                showContent('achats');
+						            } catch (error) {
+						                console.error('Error:', error);
+						            }
+						        },
+						        async removeFromCart(productId) {
+						            try {
+						                await fetch('{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
+						                this.productStates[productId] = false;
+						                localStorage.setItem('productStates', JSON.stringify(this.productStates));
+						                this.cartCount -= 1;
+						                this.refreshCart();
+						            } catch (error) {
+						                console.error('Error:', error);
+						            }
+						        }
+						    }" x-init="init()" class="boutique">
 
 
 			<div class="tabs">
@@ -98,7 +99,7 @@
 										<h5 class="B_price" style="color : rgb(180, 102, 0)">{{ product.price}}
 											FCFA</h5>
 									</span>
-									<a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})" :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien" x-text="productStates[{{ product.id }}] ? 'Retirer du panier' : 'Ajouter au panier'"></a>
+									<a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})" :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien" x-text="productStates[{{ product.id }}]? 'Retirer du panier' : 'Ajouter au panier'"></a>
 								</div>
 							</a>
 						</div>
@@ -111,8 +112,8 @@
 			{# PANIERS #}
 
 			<div class="tab-content" id="paniers">
-            <h4 style = "float : left">Votre Panier :</h4>
-            <br><br>
+				<h4 style="float : left">Votre Panier :</h4>
+				<br><br>
 				<table class="table">
 					<thead>
 						<tr>
@@ -132,8 +133,8 @@
 								<td>{{ item.product.price  * item.quantity }}</td>
 								<td>
 									<a href="#" @click.prevent="removeFromCart({{ item.product.id }})" class="sup">
-                                        <img src="{{ asset('Images/poubelle.png') }}" alt = ". . ." style = "width : 20px; height : 20px;">
-                                    </a>
+										<img src="{{ asset('Images/poubelle.png') }}" alt=". . ." style="width : 20px; height : 20px;">
+									</a>
 								</td>
 							</tr>
 
@@ -146,24 +147,24 @@
 						{% endfor %}
 					</tbody>
 				</table>
-                <br>
+				<br>
 
-                {# {{ knp_pagination_render(itemPaginate, 'layouts/panierPagination.html.twig') }} #}
-                
+				{# {{ knp_pagination_render(itemPaginate, 'layouts/panierPagination.html.twig') }} #}
+
 				<br><br>
 
-                 {% if total > 0 %}
-                    <h5 style="float : right; color : rgba(255, 136, 0, 0.719)">Total:
-                        {{ total }}
-                        FCFA</h5>
-                    <br><br>
+				{% if total > 0 %}
+					<h5 style="float : right; color : rgba(255, 136, 0, 0.719)">Total:
+						{{ total }}
+						FCFA</h5>
+					<br><br>
 
-                    <div style="display : flex; gap : 2rem; margin-left : 2rem; align-item : center">
-                        <a href="{{ path('app_cart_remove') }}" @click.prevent="clearCart()" style="background-color : rgba(255, 63, 63, 0.89); padding : 6px 10px; border-radius : 5px; color : white">Vider votre panier</a>
-                        <a href="{{ path('app_commande') }}" style="background-color : rgba(180, 102, 0, 0.753); padding : 8px 12px; border-radius : 5px; color : white; border : 2px solid #40404035">Valider la conmmande</a>
-                    </div>
-                 {% endif %}   
-				
+					<div style="display : flex; gap : 2rem; margin-left : 2rem; align-item : center">
+						<a href="{{ path('app_cart_remove') }}" @click.prevent="clearCart()" style="background-color : rgba(255, 63, 63, 0.89); padding : 6px 10px; border-radius : 5px; color : white">Vider votre panier</a>
+						<a href="{{ path('app_commande') }}" style="background-color : rgba(180, 102, 0, 0.753); padding : 8px 12px; border-radius : 5px; color : white; border : 2px solid #40404035">Valider la conmmande</a>
+					</div>
+				{% endif %}
+
 			</div>
 
 

@@ -1,24 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Récapitulatif de Commande{% endblock %}
+{% block title %}Récapitulatif de Commande
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h2>Récapitulatif de votre commande</h2>
-    <h4>Informations de la commande</h4>
-    <p>Nom: {{ commande.firstName }} {{ commande.lastName }}</p>
-    <p>Adresse: {{ commande.adresse }}</p>
-    <p>Ville: {{ commande.city.name }}</p>
-    <p>Téléphone: {{ commande.phone }}</p>
-    <h4>Produits commandés</h4>
-    <ul>
-        {% for item in cartWithData %}
-            <li>{{ item.product.name }} - {{ item.quantity }} x {{ item.product.price }} FCFA</li>
-        {% endfor %}
-    </ul>
-    <h4>Total des produits: {{ total }} FCFA</h4>
-    <h4>Frais de livraison: {{ commande.city.shippingCost }} FCFA</h4>
-    <h4>Montant total à payer: {{ total + commande.city.shippingCost }} FCFA</h4>
-    <a href="{{ path('menu_Boutique') }}" class="btn btn-primary">Confirmer la commande</a>
-</div>
+	<h4>Récapitulatif de votre commande</h4><br><br>
+	<div class="container" style="text-align : start; margin-left : 5rem">
+
+		<p>
+			<span style="font-weight : 600">
+				{{ commande.user.firstName }}
+				{{ commande.user.lastName }}</span>
+			de la ville de
+			{{ commande.city.name }},</p>
+			<p>votre commande a été effectuer avec succès<span style="color : rgb(0, 212, 0); font-size : 18px"> &#x2714;</span></p>
+            <p>Les produits commander :</p>
+		<ul>
+			{% for item in cartWithData %}
+				<li>{{ item.product.name }}
+					-
+					{{ item.quantity }}
+					x
+					{{ item.product.price }}
+					FCFA</li>
+			{% endfor %}
+		</ul>
+		<br>
+		<div style="float : right">
+			<h4>Bilan d'achat :</h4><br>
+			<h6>Total des produits commander:
+				{{ total }}
+				FCFA</h6>
+			<h6>Frais de livraison:
+				{{ commande.city.shippingCost }}
+				FCFA</h6>
+			<p>-----------------------------------------</p>
+			<h6 style="font-weight : 700">Montant total à payer:
+				{{ total + commande.city.shippingCost }}
+				FCFA</h6>
+		</div>
+		<br><br><br><br><br><br><br><br>
+	</div>
+	<a href="{{ path('menu_Boutique') }}" class="btn btn-primary">Confirmer la commande</a>
 {% endblock %}

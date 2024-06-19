@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\City;
 use App\Entity\Commande;
+use App\Entity\Purchases;
 use App\Form\CommandeType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use App\Repository\PurchasesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +26,12 @@ class CommandeController extends AbstractController
             ['label' => 'Galerie_de_Meubles', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
+
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
         $cart = $session->get('cart', []);
         $cartWithData = [];
@@ -61,7 +69,7 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/commande/verify', name: 'app_commande_prepare', methods: ['POST'])]
-    public function prepareOrder(Request $request, SessionInterface $session, EntityManagerInterface $entityManager): Response
+    public function prepareOrder(Request $request, SessionInterface $session, EntityManagerInterface $entityManager, ProductRepository $productRepository): Response
     {
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil active'],
@@ -69,22 +77,51 @@ class CommandeController extends AbstractController
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 
+        $cart = $session->get('cart', []);
+        $cartWithData = [];
+
+        foreach ($cart as $id => $quantity) {
+            $cartWithData[] = [
+                'product' => $productRepository->find($id),
+                'quantity' => $quantity
+            ];
+        }
+
+        $total = array_sum(array_map(function ($item) {
+            return $item['product']->getPrice() * $item['quantity'];
+        }, $cartWithData));
+
+
+        // Récupérez l'utilisateur actuellement connecté
+        $user = $this->getUser();
+
         $commande = new Commande();
-        
+        // Pré-remplir le prénom et le nom de l'utilisateur
+            
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
             $commande->setCreatedAt(new \DateTimeImmutable());
             
-            // Récupérez l'utilisateur actuellement connecté
-            $user = $this->getUser();
-            if (!$user) {
-                return $this->redirectToRoute('app_login');
-            }
-            
             // Associez l'utilisateur à la commande
             $commande->setUser($user);
+
+            // Récupérez le panier et enregistrez les produits commandés
+            $cart = $session->get('cart', []);
+            foreach ($cart as $id => $quantity) {
+                $product = $productRepository->find($id);
+                if ($product) {
+                    $achat = new Purchases();
+                    $achat->setProduct($product);
+                    $achat->setQuantity($quantity);
+                    $achat->setMontantTotal($total);
+                    $commande->addPurchase($achat);
+                }
+            }
+            foreach ($commande->getPurchases() as $purchase) {
+                $entityManager->persist($purchase);
+            }
     
             $entityManager->persist($commande);
             $entityManager->flush();
@@ -156,8 +193,8 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/editor/commande/{id}', name: 'admin_commande_detail')]
-    public function adminOrderDetail(Commande $commande): Response
+    #[Route('/editor/commande/{id}', name: 'admin_commande_detail', methods: ['GET'])]
+    public function adminOrderDetail(Commande $commande, PurchasesRepository $purchasesRepository): Response
     {
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil active'],
@@ -165,9 +202,13 @@ class CommandeController extends AbstractController
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 
+
+        
         return $this->render('commande/admin_commande_detail.html.twig', [
             'menuItems' => $menuItems,
             'commande' => $commande,
+            'produitsCommandes' => $purchasesRepository->findByCommande($commande),
+            'achat'=> $purchasesRepository  
         ]);
     }
 }

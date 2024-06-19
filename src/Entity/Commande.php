@@ -16,12 +16,6 @@ class Commande
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $firstName = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $lastName = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
     #[ORM\Column(length: 255)]
@@ -38,43 +32,19 @@ class Commande
     private ?User $user = null;
 
     /**
-     * @var Collection<int, Product>
+     * @var Collection<int, Purchases>
      */
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'commandes')]
-    private Collection $products;
+    #[ORM\OneToMany(targetEntity: Purchases::class, mappedBy: 'commande')]
+    private Collection $purchases;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->purchases = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): static
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): static
-    {
-        $this->lastName = $lastName;
-
-        return $this;
     }
 
     public function getPhone(): ?string
@@ -138,26 +108,33 @@ class Commande
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection<int, Purchases>
      */
-    public function getProducts(): Collection
+    public function getPurchases(): Collection
     {
-        return $this->products;
+        return $this->purchases;
     }
 
-    public function addProduct(Product $product): static
+    public function addPurchase(Purchases $purchase): static
     {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases->add($purchase);
+            $purchase->setCommande($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): static
+    public function removePurchase(Purchases $purchase): static
     {
-        $this->products->removeElement($product);
+        if ($this->purchases->removeElement($purchase)) {
+            // set the owning side to null (unless already changed)
+            if ($purchase->getCommande() === $this) {
+                $purchase->setCommande(null);
+            }
+        }
 
         return $this;
     }
+
 }
