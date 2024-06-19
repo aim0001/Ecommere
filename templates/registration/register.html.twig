@@ -65,7 +65,7 @@
 
     {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
+    {{ form_start(registrationForm, { action: path('app_register') }) }}
         <label for="{{ registrationForm.firstName.vars.id }}">Nom</label>
         {{ form_widget(registrationForm.firstName, { 'attr': {'class': 'input-field'} }) }}
 
