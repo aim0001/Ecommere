@@ -21,7 +21,7 @@ class Commande
     #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    #[ORM\ManyToOne(inversedBy: 'city')]
     private ?City $city = null;
 
     #[ORM\Column]

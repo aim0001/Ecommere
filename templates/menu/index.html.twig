@@ -3,5 +3,14 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <p>Hello world!!</p>
+    <div class="block_img">
+        <div>
+            <img src="{{ asset('Images/red-pillows-indoor-cushion-modern.jpg') }}" alt="..." class="image_acceuil"/>
+        </div>
+        <div class="title-container">
+            <h1 class="slide-title animate">Bienvenue à <span style="color: #a75900; font-weight: 600" class="span">BELbois</span></h1>
+            <p class="slide-text animate">Votre destination pour les meilleurs meubles en bois personnalisés.</p>
+            <a href="{{ path('menu_Boutique') }}" class="slide-button animate">Nos produits <span style="font-weight: 600">&rarr;</span></a>
+        </div>
+    </div>
 {% endblock %}

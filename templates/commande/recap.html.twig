@@ -13,8 +13,10 @@
 				{{ commande.user.lastName }}</span>
 			de la ville de
 			{{ commande.city.name }},</p>
-			<p>votre commande a été effectuer avec succès<span style="color : rgb(0, 212, 0); font-size : 18px"> &#x2714;</span></p>
-            <p>Les produits commander :</p>
+		<p>votre commande a été effectuer avec succès<span style="color : rgb(0, 212, 0); font-size : 18px">
+				&#x2714;</span>
+		</p>
+		<p>Les produits commander :</p>
 		<ul>
 			{% for item in cartWithData %}
 				<li>{{ item.product.name }}
@@ -35,11 +37,14 @@
 				{{ commande.city.shippingCost }}
 				FCFA</h6>
 			<p>-----------------------------------------</p>
-			<h6 style="font-weight : 700">Montant total à payer:
+			<h6 style="font-weight : 700">Montant total:
 				{{ total + commande.city.shippingCost }}
 				FCFA</h6>
 		</div>
 		<br><br><br><br><br><br><br><br>
 	</div>
-	<a href="{{ path('menu_Boutique') }}" class="btn btn-primary">Confirmer la commande</a>
+	<div style="display : flex; gap : 1rem; justify-content : center; margin-bottom : 5rem">
+		<a href="{{ path('app_commande_valider') }}" class="logout-link" style = "color : white; padding : 8px 12px; border-radius : 5px; background-color : #3498db">Validation de la commande</a>
+	</div>
 {% endblock %}
+

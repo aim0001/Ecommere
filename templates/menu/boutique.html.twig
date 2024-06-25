@@ -67,7 +67,10 @@
 						            } catch (error) {
 						                console.error('Error:', error);
 						            }
-						        }
+						        },
+								init() {
+									this.cartCount = this.products.length > 0 ? Object.values(this.productStates).filter(state => state).length : 0;
+								}
 						    }" x-init="init()" class="boutique">
 
 

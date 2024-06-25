@@ -29,7 +29,7 @@ class MenuController extends AbstractController
 
         return $this->render('menu/index.html.twig', [
             'menuItems' => $menuItems,
-            'categories'=> $categoryRepository->findAll(),
+            
         ]);
     }
 

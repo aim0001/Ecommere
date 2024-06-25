@@ -5,63 +5,64 @@
 {% block body %}
 <body>
     <main x-data="{
-        cartCount: 0,
-        products: {{ products|json_encode|raw }},
-        productStates: JSON.parse(localStorage.getItem('productStates') || '{}'),
-        init() {
-            this.cartCount = Object.values(this.productStates).filter(state => state).length;
-        },
-        async toggleCart(productId) {
-            if (!this.productStates[productId]) {
-                this.productStates[productId] = false;
-            }
-            this.productStates[productId] = !this.productStates[productId];
-            this.cartCount += this.productStates[productId] ? 1 : -1;
-            localStorage.setItem('productStates', JSON.stringify(this.productStates));
-
-            const addUrl = '{{ path('app_cart_new', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
-            const removeUrl = '{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
-
-            const url = this.productStates[productId] ? addUrl : removeUrl;
-
-            try {
-                await fetch(url, { method: 'GET' });
-                this.refreshCart();
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        },
-        async refreshCart() {
-            const response = await fetch('{{ path('app_cart') }}', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const newCartContent = doc.querySelector('#paniers').innerHTML;
-            document.querySelector('#paniers').innerHTML = newCartContent;
-        },
-        async clearCart() {
-            try {
-                await fetch('{{ path('app_cart_remove') }}', { method: 'GET' });
-                this.productStates = {};
-                localStorage.setItem('productStates', JSON.stringify(this.productStates));
-                this.cartCount = 0;
-                showContent('achats');
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        },
-        async removeFromCart(productId) {
-            try {
-                await fetch('{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
-                this.productStates[productId] = false;
-                localStorage.setItem('productStates', JSON.stringify(this.productStates));
-                this.cartCount -= 1;
-                this.refreshCart();
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-    }" x-init="init()">
+						        cartCount: 0,
+						        products: {{ products|json_encode|raw }},
+						        productStates: JSON.parse(localStorage.getItem('productStates') || '{}'),
+						        init() {
+						            this.cartCount = Object.values(this.productStates).filter(state => state).length;
+						        },
+						        async toggleCart(productId) {
+						            if (!this.productStates[productId]) {
+						                this.productStates[productId] = false;
+						            }
+						            this.productStates[productId] = !this.productStates[productId];
+						            this.cartCount += this.productStates[productId] ? 1 : -1;
+						            localStorage.setItem('productStates', JSON.stringify(this.productStates));
+			
+						            const addUrl = '{{ path('app_cart_new', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
+						            const removeUrl = '{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
+			
+						            const url = this.productStates[productId] ? addUrl : removeUrl;
+			
+						            try {
+						                await fetch(url, { method: 'GET' });
+						                this.refreshCart();
+						            } catch (error) {
+						                console.error('Error:', error);
+						            }
+						        },
+						        async refreshCart() {
+						            const response = await fetch('{{ path('app_cart') }}', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+						            const html = await response.text();
+						            const parser = new DOMParser();
+						            const doc = parser.parseFromString(html, 'text/html');
+						            const newCartContent = doc.querySelector('#paniers').innerHTML;
+						            document.querySelector('#paniers').innerHTML = newCartContent;
+						        },
+						        async clearCart() {
+						            try {
+						                await fetch('{{ path('app_cart_remove') }}', { method: 'GET' });
+						                this.productStates = {};
+						                localStorage.setItem('productStates', JSON.stringify(this.productStates));
+						                this.cartCount = 0;
+										this.refreshCart();
+						                showContent('achats');
+						            } catch (error) {
+						                console.error('Error:', error);
+						            }
+						        },
+						        async removeFromCart(productId) {
+						            try {
+						                await fetch('{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
+						                this.productStates[productId] = false;
+						                localStorage.setItem('productStates', JSON.stringify(this.productStates));
+						                this.cartCount -= 1;
+						                this.refreshCart();
+						            } catch (error) {
+						                console.error('Error:', error);
+						            }
+						        }
+						    }" x-init="init()">
         <div class="tabs">
             <div class="tab active-tab" onclick="showContent('achats')">Prix et Ventes</div>
             <div class="tab" onclick="showContent('paniers')">PANIERS <span x-text="cartCount" class="notif"></span></div>

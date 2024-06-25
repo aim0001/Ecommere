@@ -80,6 +80,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    position: relative;
 }
 
 li {
@@ -1052,4 +1053,96 @@ a:hover {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+
+
+.block_img {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image_acceuil {
+    width: 500px;
+    height: 550px;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    text-align: center;
+    height: 550px;
+    margin-left: 4rem;
+}
+
+.slide-title {
+    font-family: 'Wangi';
+    margin-top: 5rem;
+    margin-left: 2rem;
+    text-align: start;
+    color: #da7400;
+    opacity: 0;
+    font-size: 55px;
+    transform: translateX(100%);
+    animation: slide-in-title 5s forwards;
+}
+
+@keyframes slide-in-title {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-text {
+    margin-top: 1rem;
+    color: #333;
+    opacity: 0;
+    font-size: 18px;
+    text-align: start;
+    transform: translateY(100%);
+    animation: slide-in-text 3s 3s forwards;
+}
+
+@keyframes slide-in-text {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-button {
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slide-in-button 3s 6s forwards;
+    padding: 10px 15px;
+    border-radius: 3px;
+    width: max-content;
+    background-color: #a75900;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    text-align: start;
+}
+
+.slide-button:hover {
+    color: white;
+}
+
+@keyframes slide-in-button {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.span{
+    font-family: 'Poppin';
 }

@@ -15,29 +15,28 @@ class CommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('phone', null, [
-                'attr'=>[
-                    'class'=>'form form-control'
-                ]
-            ])
+        ->add('phone',null,[
+            'attr'=>[
+                'class'=>'form form-control'
+            ]
+        ])
             ->add('city', EntityType::class, [
                 'class' => City::class,
                 'choice_label' => 'name',
-                    'attr'=>[
-                        'class'=>'form form-control'
-                    ]
-                
-            ])
+                'attr'=> [
+                    'class'=>'form form-control'
+                ]
+                ])
             
             // ->add('createdAt', null, [
             //     'widget' => 'single_text',
             // ])
-            ->add('adresse', null, [
+            ->add('adresse',null,[
                 'attr'=>[
                     'class'=>'form form-control'
                 ]
-            ])
-        ;
+            ])             
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
