@@ -14,7 +14,11 @@ class SecurityController extends AbstractController
 {   
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepository, SessionInterface $session): Response
-    {  
+    {
+        
+              // Vider le panier
+        $session->remove('cart');
+        $session->remove('productStates');
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
