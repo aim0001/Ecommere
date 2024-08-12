@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<br>
+	<h3 style="text-align : start">Commandes</h3>
+	<br>
+	{% include 'layouts/_flash_message.html.twig' %}
+	<br>
+	{% for commande in commandes %}
+		<table class="table">
+			<p style="text-align : start; margin-left: 2rem; text-decoration: underline; font-weight:600">Commande n°{{ commande.id }}</p>
+			<p>
+				{% if commande.isCompleted == true %}
+					<h6 class="text-danger" style="text-align : start; margin-left: 3rem">Commande livrée :
+						{{ commande.createdAt|date }}</h6>
+				{% else %}
+					<h6 class="text-success" style="text-align : start; margin-left: 3rem">Commande non livrée :
+						{{ commande.createdAt|date }}</h6>
+				{% endif %}
+			</p>
+			<h6 style="margin-left: 4rem; text-align: start">Information du client
+			</h6>
+			<br>
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Téléphone</th>
+					<th>Adresse</th>
+					<th>Ville</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{ commande.firstName }}</td>
+					<td>{{ commande.lastName }}</td>
+					<td>{{ commande.phone }}</td>
+					<td>{{ commande.adresse }}</td>
+					<td>{{ commande.city.name  }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<table class="table table-bordered">
+			<h6 style="margin-left: 4rem; text-align: start">Corps de la commande</h6>
+			<br>
+			<thead>
+				<tr>
+					<th>Image Produit</th>
+					<th>Nom du produit</th>
+					<th>Description</th>
+					<th>Prix</th>
+					<th>Quantité</th>
+					<th>Prix total</th>
+				</tr>
+			</thead>
+			{% for product in commande.productCommandes %}
+				<tbody>
+					<tr>
+						<td><img src="{{ asset('uploads/images/'~product.product.image) }}" style="width : 150px; height : 150px"/></td>
+						<td>{{ product.product.name }}</td>
+						<td>{{ product.product.description|slice(0,200)}}
+							...</td>
+						<td>{{ product.product.price }}</td>
+						<td>{{ product.qte }}</td>
+						<td>{{ product.qte * product.product.price }}</td>
+					</tr>
+				</tbody>
+			{% endfor %}
+		</table>
+		<div style="text-align: end">
+			<p>Total :
+				<span style="font-weight : 500">{{ commande.totalPrice }}
+					FCFA</span>
+			</p>
+			<p>Frais de livraison :
+				<span style="font-weight : 600">{{ commande.city.shippingCost }}
+					FCFA</span>
+			</p>
+			<p>
+				Total à payer :
+				<span style="font-weight : 600">{{ commande.totalPrice + commande.city.shippingCost}}
+					FCFA</span>
+			</p>
+			<a class="btn btn-outline-success col-2 m-lg-1" href="{{ path('app_bill', {'id': commande.id}) }}">Imprimer la facture</a>
+			{% if commande.isCompleted != true %}
+				<a href="{{ path('app_orders_is_completed_update',{'id': commande.id}) }}" class="btn btn-outline-primary col-2 m-lg-1">Marq comme livrée</a>
+			{% endif %}
+			<a onclick="return confirm('Voulez vous vraiment suppimer la commande de {{ commande.firstName }} {{ commande.lastName }}')" href="{{ path('app_commandes_remove',{'id': commande.id}) }}" class="btn btn-outline-danger col-2 m-lg-1">Sup la commande</a>
+
+		</div>
+		<br><br><hr><br>
+	{% endfor %}
+
+	{{ knp_pagination_render(commandes, 'layouts/pagination.html.twig') }}
+
+{% endblock %}

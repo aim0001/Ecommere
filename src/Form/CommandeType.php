@@ -17,12 +17,14 @@ class CommandeType extends AbstractType
             ->add('firstName', null,[
                 'attr'=>[
                     'class'=>'form form-control'
-                ]
+                ],
+                'label' => 'Nom'
             ])
             ->add('lastName', null, [
                 'attr'=>[
                     'class'=>'form form-control'
-                ]
+                ],
+                'label' => 'Prénom'
             ])
             ->add('phone', null, [
                 'attr'=>[
@@ -31,9 +33,10 @@ class CommandeType extends AbstractType
             ])
             ->add('city', EntityType::class, [
                 'class' => City::class,
+                'label' => 'Ville',
                 'choice_label' => 'name',
                     'attr'=>[
-                        'class'=>'form form-control'
+                        'class' => 'form form-control'
                     ]
                 
             ])
@@ -45,6 +48,9 @@ class CommandeType extends AbstractType
                 'attr'=>[
                     'class'=>'form form-control'
                 ]
+            ])
+            ->add('payOnDelivery', null, [
+                'label'=>'Payer à la livraison'
             ])
         ;
     }

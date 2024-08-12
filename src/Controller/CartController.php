@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use App\Services\Cart;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,7 +23,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart', name: 'app_cart', methods:['GET'])]
-    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, SessionInterface $session, Request $request, PaginatorInterface $paginator): Response
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, SessionInterface $session, Request $request, PaginatorInterface $paginator, Cart $cart): Response
     {
 
         $data = $productRepository->findBy([],['id'=>"DESC"]);
@@ -39,33 +40,13 @@ class CartController extends AbstractController
         ];
 
 
-
-        $cart = $session->get('cart',[]);
-        $cartWithData = [];
-
-        foreach ($cart as $id => $quantity) {
-            $cartWithData[] = [
-                'product' => $this->productRepository->find($id),
-                'quantity' => $quantity
-            ];
-        }
-
-        // $cartPagination = $paginator->paginate(
-        //     $cartWithData,
-        //     $request->query->getInt('cartPage',1),
-        //     4
-        // );
-
-        $total = array_sum(array_map(function($item){
-            return $item['product']->getPrice() * $item['quantity'];
-        },$cartWithData));
-
-        // dd($cartWithData);
+        $data = $cart->getCart($session);
+        
 
         return $this->render('menu/boutique.html.twig', [
             // 'itemPaginate' => $cartPagination,
-            'items' => $cartWithData,
-            'total' => $total,
+            'items' => $data['cart'],
+            'total' => $data['total'],
             'menuItems' => $menuItems,
             'products' => $products,
             'categories'=> $categoryRepository->findAll()

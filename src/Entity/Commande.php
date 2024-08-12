@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
@@ -30,6 +32,26 @@ class Commande
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?bool $payOnDelivery = null;
+
+    /**
+     * @var Collection<int, ProductCommande>
+     */
+    #[ORM\OneToMany(targetEntity: ProductCommande::class, mappedBy: 'commande', orphanRemoval: true)]
+    private Collection $productCommandes;
+
+    #[ORM\Column]
+    private ?float $totalPrice = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isCompleted = null;
+
+    public function __construct()
+    {
+        $this->productCommandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +126,72 @@ class Commande
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function isPayOnDelivery(): ?bool
+    {
+        return $this->payOnDelivery;
+    }
+
+    public function setPayOnDelivery(bool $payOnDelivery): static
+    {
+        $this->payOnDelivery = $payOnDelivery;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductCommande>
+     */
+    public function getProductCommandes(): Collection
+    {
+        return $this->productCommandes;
+    }
+
+    public function addProductCommande(ProductCommande $productCommande): static
+    {
+        if (!$this->productCommandes->contains($productCommande)) {
+            $this->productCommandes->add($productCommande);
+            $productCommande->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductCommande(ProductCommande $productCommande): static
+    {
+        if ($this->productCommandes->removeElement($productCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($productCommande->getCommande() === $this) {
+                $productCommande->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): static
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function isCompleted(): ?bool
+    {
+        return $this->isCompleted;
+    }
+
+    public function setCompleted(?bool $isCompleted): static
+    {
+        $this->isCompleted = $isCompleted;
 
         return $this;
     }
