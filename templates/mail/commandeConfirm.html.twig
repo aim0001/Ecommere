@@ -1,0 +1,141 @@
+<style>
+	.container {
+		width: 80%;
+		margin: 0 auto;
+		font-family: Arial, sans-serif;
+	}
+
+	.table {
+		width: 100%;
+		margin-bottom: 20px;
+		border-collapse: collapse;
+		font-size: 16px;
+	}
+
+	.table h3 {
+		margin-bottom: 20px;
+		font-size: 24px;
+		font-weight: bold;
+	}
+
+	.table hr {
+		border: 1px solid #ccc;
+	}
+
+	.table thead th {
+		text-align: left;
+		padding: 8px;
+		background-color: #f8f8f8;
+		border-bottom: 2px solid #ccc;
+	}
+
+	.table tbody tr {
+		border-bottom: 1px solid #eee;
+	}
+
+	.table tbody td {
+		padding: 10px;
+		vertical-align: middle;
+	}
+
+	.table-bordered {
+		border: 1px solid #ddd;
+	}
+
+	.table-bordered thead th,
+	.table-bordered tbody td {
+		border: 1px solid #ddd;
+		padding: 12px;
+	}
+
+	.table-bordered thead th {
+		background-color: #f2f2f2;
+	}
+
+	div p {
+		font-size: 18px;
+		margin: 5px 0;
+	}
+
+	div p span {
+		font-weight: bold;
+	}
+
+	div hr {
+		margin: 10px 0;
+		border: 1px solid #ccc;
+	}
+
+	div .total,
+	div .shipping-cost {
+		text-align: right;
+		font-size: 18px;
+		margin: 10px 0;
+	}
+</style>
+<div class="container">
+	<br>
+
+	<h3>Confirmation de reception de la commande</h3>
+
+	<p>Bonjour M/Mme {{ commande.firstName}} {{commande.lastName }}</p>
+	
+	<br>
+
+	<p>Nous avons bien reçu votre commande passée le
+		{{ commande.createdAt|date }}. Nous vous remercions de votre confiance.</p>
+
+	<p>Soyez assuré(e) que notre équipe est déjà en train de préparer votre commande avec soin. Nous nous engageons à vous la livrer dans les plus brefs délais.</p>
+
+	<p>Si vous avez des questions ou des besoins supplémentaires, n'hésitez pas à nous contacter. Nous restons à votre disposition pour toute assistance.</p>
+
+	<p>Encore merci pour votre achat.</p>
+
+	<br>
+
+	<p>Cordialement,<br>
+		M BELLO
+		<br>Responsable
+		<br>
+		belBois</p>
+
+	<h5 style="margin-left: 4rem; text-align: start">Détails de la commande</h5>
+	{# <table class="table table-bordered">
+		<br>
+		<thead>
+			<tr>
+				<th>Nom du produit</th>
+				<th>Prix</th>
+				<th>Quantité</th>
+				<th>Prix total</th>
+			</tr>
+		</thead>
+		{% for product in commande.productCommandes %}
+			<tbody>
+				<tr>
+					<td>{{ product.product.name }}</td>
+					<td>{{ product.product.price }}</td>
+					<td>{{ product.qte }}</td>
+					<td>{{ product.qte * product.product.price }}</td>
+				</tr>
+			</tbody>
+		{% endfor %}
+	</table> #}
+	<div style="text-align: end">
+		<p>Total :
+			<span style="font-weight : 500">{{ commande.totalPrice }}
+				FCFA</span>
+		</p>
+		<p>Frais de livraison :
+			<span style="font-weight : 500">{{ commande.city.shippingCost }}
+				FCFA</span>
+		</p>
+		<hr>
+		<p>
+			Total à payer :
+			<span style="font-weight : 600; font-size : 18px">{{ commande.totalPrice + commande.city.shippingCost}}
+				FCFA</span>
+		</p>
+	</div>
+	<br><br><hr><br>
+</div>

@@ -26,6 +26,11 @@ class CommandeType extends AbstractType
                 ],
                 'label' => 'Prénom'
             ])
+            ->add('email', null, [
+                'attr'=>[
+                    'class'=>'form form-control'
+                ]
+            ])
             ->add('phone', null, [
                 'attr'=>[
                     'class'=>'form form-control'

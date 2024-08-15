@@ -20,10 +20,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class CommandeController extends AbstractController
 {
+
+    public function __construct(private MailerInterface $mailer) {}
+
     #[Route('/commande', name: 'app_commande')]
     public function index(CategoryRepository $categoryRepository, Request $request, SessionInterface $session, Cart $cart, EntityManagerInterface $entityManager): Response
     {
@@ -66,6 +72,19 @@ class CommandeController extends AbstractController
                 }
 
                 $session->set('cart', []);
+
+                $html = $this->renderView('mail/commandeConfirm.html.twig', [
+                    'commande' => $commande
+                ]);
+
+                $email = (new Email())
+                    ->from('tbelbois@gmail.com')
+                    ->to($commande->getEmail())
+                    ->subject('Confirmation de reception de la commande')
+                    ->html($html);
+
+                    $this->mailer->send($email);
+                    
                 return $this->redirectToRoute('commande_ok_message');
             }
         }
@@ -124,7 +143,7 @@ class CommandeController extends AbstractController
 
 
     #[Route('/editor/commande/{id}/remove', name: 'app_commandes_remove')]
-    public function removeCommande(Commande $commande, EntityManagerInterface $entityManager): Response 
+    public function removeCommande(Commande $commande, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($commande);
         $entityManager->flush();

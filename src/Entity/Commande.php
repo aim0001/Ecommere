@@ -48,6 +48,9 @@ class Commande
     #[ORM\Column(nullable: true)]
     private ?bool $isCompleted = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->productCommandes = new ArrayCollection();
@@ -192,6 +195,18 @@ class Commande
     public function setCompleted(?bool $isCompleted): static
     {
         $this->isCompleted = $isCompleted;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }
