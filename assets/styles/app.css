@@ -63,23 +63,40 @@
 
 html {
     scroll-behavior: smooth;
+    top: 0;
 }
 
 header {
+    background: whitesmoke;
 	position: sticky;
     top: 0;
     z-index: 9000;
-    height: 80px;
 }
 
 body {
     font-size: medium;
     font-family: 'Poppins';
-    width: 1024px;
-    margin-top: 1rem;
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
+}
+img{
+    object-fit: cover;
+}
+footer{
+    background: #000;
+    color: white;
+    bottom: 0;
+    margin: 0;
+}
+
+.footer{
+    display: flex;
+    justify-content: space-evenly;
+    padding-block: 60px;
+}
+
+.adresse{
+    width: 300px;
+    font-weight: 200;
 }
 
 li {
@@ -96,20 +113,18 @@ a:hover {
 }
 
 .contain_head {
-    margin-top: 1rem;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.contain_nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
+/* .contain_nav {
     background-color: #fff;
     position: sticky;
     top: 0;
     z-index: 9000;
     height: 80px;
-}
+} */
 
 .title {
     font-family: 'Wangi';
@@ -148,12 +163,26 @@ a:hover {
 
 .menu {
     display: flex;
-    text-align: center;
+    padding-inline: 8rem;
+    padding-block: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navi{
+    display: flex;
+    align-items: center;
     gap: 3rem;
+}
+.CompteContact{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 .menu-icon{
 	display: none;
 }
+
 
 /* Ajout pour le menu hamburger */
 @media only screen and (max-width: 768px) {
@@ -211,26 +240,15 @@ a:hover {
 }
 
 .menu_Accueil:hover {
-    color: rgb(255, 136, 0);
+    color: red;
     text-decoration: none;
 }
 
 .menu_Accueil.active {
-    color: rgb(255, 136, 0);
+    color: red;
+    font-weight: 600;
     margin-right: 0.8rem;
     margin-left: 0.8rem;
-}
-
-.menu_Accueil.active::before {
-    content: '[';
-    position: absolute;
-    left: -0.8rem;
-}
-
-.menu_Accueil.active::after {
-    content: ']';
-    position: absolute;
-    right: -0.8rem;
 }
 
 .menu_Galerie {
@@ -239,26 +257,22 @@ a:hover {
 }
 
 .menu_Galerie:hover {
-    color: rgb(255, 136, 0);
+    color: red;
     text-decoration: none;
 }
 
 .menu_Galerie.active {
-    color: rgb(255, 136, 0);
+    color: red;
+    font-weight: 600;
     margin-right: 0.8rem;
     margin-left: 0.8rem;
 }
 
-.menu_Galerie.active::before {
-    content: '[';
-    position: absolute;
-    left: -0.8rem;
-}
 
-.menu_Galerie.active::after {
-    content: ']';
-    position: absolute;
-    right: -0.8rem;
+.boutique{
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .menu_Boutique {
@@ -267,41 +281,31 @@ a:hover {
 }
 
 .menu_Boutique:hover {
-    color: rgb(255, 136, 0);
+    color: red;
     text-decoration: none;
 }
 
 .menu_Boutique.active {
-    color: rgb(255, 136, 0);
+    color: red;
+    font-weight: 600;
     margin-right: 0.8rem;
     margin-left: 0.8rem;
-}
-
-.menu_Boutique.active::before {
-    content: '[';
-    position: absolute;
-    left: -0.8rem;
-}
-
-.menu_Boutique.active::after {
-    content: ']';
-    position: absolute;
-    right: -0.8rem;
 }
 
 
 .button1 {
     padding: 0.5rem;
+    color: white;
     cursor: pointer;
     font-size: 15px;
-    background-color: rgba(255, 136, 0, 0.719);
+    background-color: #1A3F6D;
     border: none;
     border-radius: 05px;
     transition: all 0.5s ease-in-out;
 }
 
-.button1:hover {
-    background-color: rgba(255, 136, 0, 0.61);
+#button1:hover {
+    background-color: #132b47;
 }
 
 .slideshow-container {
@@ -588,17 +592,6 @@ a:hover {
     margin-left: 0.8rem;
 }
 
-.menu_Admin.active::before {
-    content: '{';
-    position: absolute;
-    left: -0.8rem;
-}
-
-.menu_Admin.active::after {
-    content: '}';
-    position: absolute;
-    right: -0.8rem;
-}
 
 
 .dropdown {
@@ -890,6 +883,8 @@ a:hover {
 			display: flex;
 			justify-content: space-around;
 			padding: 15px 10px;
+            padding-left: 5rem;
+            padding-right: 5rem;
 			background-color: #ececec;
 			border-top: #4040404b 1px solid;
 			border-radius: 3px;
@@ -1052,4 +1047,49 @@ a:hover {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.d-flex{
+    width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+.btns{
+    border: none;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.616);
+    border-radius: 5px;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+.buto_incre{
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.buto_incre:hover{
+    background-color: #e0e0e0;
+}
+
+/* CSS pour l'icône WhatsApp */
+.whatsapp-icon {
+    position: fixed;
+    bottom: 60px;  /* Ajustez en fonction de la hauteur de votre footer */
+    right: 7rem;   /* Ajustez en fonction de l'espacement souhaité du bord droit */
+    z-index: 1000; /* Assure que l'icône est au-dessus de tout autre contenu */
+    transition: transform 0.3s;
+}
+
+.whatsapp-icon img {
+    width: 95px; /* Ajustez la taille de l'icône comme vous le souhaitez */
+    height: auto;
+}
+
+.whatsapp-icon:hover {
+    transform: scale(1.1); /* Animation simple pour l'effet de survol */
 }

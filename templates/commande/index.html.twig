@@ -10,7 +10,7 @@
 				<br>
 				<h4 style="margin-left : 5rem">Vérification</h4>
 				<br>
-				{{ form_start(form) }}
+				{{ form_start(form, {"attr":{'data-turbo':'false'}}) }}
 				{{ form_widget(form) }}
 				<br>
 				<input type="submit" value="continuer" class="btn btn-outline-primary">

@@ -1,7 +1,369 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 {% block body %}
-    <p>Hello world!!</p>
-{% endblock %}
+	<style>
+		body {
+			width: 100%;
+			margin: 0;
+		}
+
+		/* Image*/
+		.Block_img {
+			padding-block: 150px;
+			padding-inline: 200px;
+			background: url('/Images/fabricant-menuiserie-bois.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+			color: white;
+		}
+		.Block_img .Block_texte button {
+			color: white;
+			padding: 10px 12px;
+			border: none;
+			border-radius: 5px;
+			background: #1A3F6D;
+			margin-top: 2rem;
+		}
+		.Block_img .Block_texte button:hover {
+			background: #132b47;
+			cursor: pointer;
+		}
+
+		.Block_main {
+			max-width: 1114px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 2rem;
+		}
+
+		.Block_propos {
+			display: flex;
+			align-items: center;
+			gap: 5rem;
+			padding-block: 2rem;
+		}
+
+		.img_P img {
+			width: 35rem;
+			opacity: 0.8;
+			border-radius: 5px;
+		}
+
+		.text_P h4 {
+			font-weight: 600;
+			color: #1A3F6D;
+		}
+
+		.text_P p {
+			text-align: justify;
+		}
+
+		.Block_service {
+			padding-inline: 10rem;
+			padding-block: 2rem;
+		}
+		.Block_service h4 {
+			color: #1A3F6D;
+			font-weight: 600;
+		}
+		.Block_service_listes {
+			display: flex;
+			gap: 4rem;
+		}
+		.service_listes {
+			padding-block: 2rem;
+			text-align: justify;
+		}
+		.service_listes li span {
+			font-weight: 600;
+		}
+
+		.Block_gallery {
+			padding-inline: 80px;
+		}
+		.Block_gallery h4 {
+			font-weight: 600;
+			color: #1a2c5b;
+			text-align: start;
+			margin-bottom: 25px;
+			margin-left: 1rem;
+		}
+		.Block_gallery p {
+			text-align: start;
+			margin-bottom: 1rem;
+		}
+		.Block_gallery p span {
+			font-weight: 600;
+		}
+
+		.gallery_container {
+			display: grid;
+			grid-template-columns: repeat(5, 200px);
+			grid-template-rows: repeat(2, 200px);
+			gap: 10px;
+		}
+		.item {
+			width: 100%;
+			height: 100%;
+			border-radius: 5px;
+			filter: brightness(0.8);
+			transition: transform 0.3s ease, filter 2s ease; /* Ajoute une transition pour le filtre et la transformation */
+		}
+		.item:hover {
+			cursor: pointer;
+			filter: brightness(1.2); /* Augmente la luminosité pour un effet d'éclaircissement */
+			transform: scale(1.05); /* Agrandit l'image pour l'effet d'agrandissement */
+		}
+
+		.item1 {
+			grid-column: 1 / 3;
+			grid-row: 1 / 3;
+		}
+
+		.item2 {}
+
+		.item3 {}
+
+		.item4 {
+			grid-column: 3 / 5;
+			grid-row: 2 / 3;
+		}
+
+		.item5 {
+			grid-column: 5 / 6;
+			grid-row: 1 / 3;
+		}
+
+		.boutton {
+			margin-left: 1rem;
+			text-align: start;
+			font-weight: 600;
+			background: whitesmoke;
+			padding-block: 10px;
+			padding-inline: 10px;
+			transition: 1s ease;
+		}
+		.boutton:hover {
+			cursor: pointer;
+			background: rgb(207, 207, 207);
+		}
+
+
+		.contact-section {
+			display: flex;
+			align-items: end;
+			background-color: #fff;
+			padding-block: 100px;
+			align-items: center;
+			gap: 6rem;
+
+		}
+
+		.contact-image {
+			padding-right: 20px;
+		}
+
+		.contact-image img {
+
+			width: 100%;
+			border-radius: 5px;
+			opacity: 0.8;
+		}
+
+		.contact-form {
+			flex: 2;
+		}
+
+		.contact-form h4 {
+			color: #1A3F6D;
+			font-size: 2rem;
+			font-weight: 600;
+			margin-bottom: 30px;
+		}
+
+		.contact-form p {
+			font-size: 1rem;
+			margin-bottom: 40px;
+			font-weight: 600;
+			color: #333;
+		}
+
+		.contact-form p a {
+			color: rgb(0, 212, 0);
+			font-size: 20px;
+		}
+		form {
+			padding: 20px;
+			background-color: #f5f9ff;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.form-row {
+			display: flex;
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+
+		.form-group {
+			flex: 1;
+		}
+
+		.form-group label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+
+		.form-group input,
+		.form-group textarea {
+			width: 100%;
+			padding: 10px;
+			border: none;
+			border-radius: 4px;
+			font-size: 1rem;
+		}
+
+		.form-group textarea {
+			resize: vertical;
+			min-height: 100px;
+		}
+
+		button[type="submit"] {
+			display: inline-block;
+			background-color: #1a2c5b;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			font-size: 1rem;
+			cursor: pointer;
+		}
+
+		button[type="submit"]:hover {
+			background-color: #163f9b;
+		}
+	</style>
+	{# Image entete #}
+	<div class="Block_header">
+		<div
+			class="Block_img">
+			{# <img src="{{ asset('Images/fabricant-menuiserie-bois.jpg') }}" alt="..." class="photo"/> #}
+			<div class="Block_texte">
+				<h1>La solution à vos projets de Menuiserie d'Ameublement, BTP & diverses Prestation</h1>
+				<br>
+				<p class="texte">L'atelier du Menuisier fabrique tout type de meubles de rangement sur mesure</p>
+				<button class="bntB">
+					<a href="{{ path('menu_Boutique') }}" style="color: white; font-weight: 600;">Nos produits --><a></button>
+					</div>
+				</div>
+			</div>
+			<div class="Block_main">
+				<div class="Block_propos">
+					<div class="img_P">
+						<img src="Images/ouvrier-du-batiment-utilise-pistolet-clous-pneumatique_1280275-231940.avif" alt="..."/>
+					</div>
+					<div class="text_P">
+						<h4>À propos de belbois</h4>
+						<br>
+						<p>
+							Nous nous engageons à fournir des solutions de menuiserie de haute qualité pour vos projets d'ameublement, de construction et bien plus encore. Forts de notre expérience et de notre savoir-faire, nous créons des meubles sur mesure qui allient esthétisme et fonctionnalité. Notre mission est de transformer vos idées en réalité, avec des produits qui répondent à vos besoins et surpassent vos attentes.</p>
+					</div>
+				</div>
+
+
+				<div class="Block_service">
+					<h4>
+						Nos Services
+					</h4>
+					<div class="Block_service_listes">
+						<div class="service_listes">
+							<li style="display:flex; gap: 1.5rem">
+								<span style="font-size: 1.2em;">✏️
+								</span>
+								<p>
+									<span>Conception sur Mesure :
+									</span>Travaillez avec nos designers pour créer des meubles qui correspondent exactement à votre vision.</p>
+							</li>
+							<br>
+							<li style="display:flex; gap: 1.5rem">
+								<span style="font-size: 1.2em;">🔨
+								</span>
+								<p>
+									<span>Fabrication Artisanale :
+									</span>Nos artisans expérimentés utilisent des techniques de menuiserie traditionnelles et modernes pour fabriquer vos meubles sur mesure.</p>
+							</li>
+						</div>
+						<div class="service_listes">
+							<li style="display:flex; gap: 1.5rem">
+								<span style="font-size: 1.2em;">🔧
+								</span>
+								<p>
+									<span>Installation Professionnelle :
+									</span>Nous assurons une installation professionnelle de nos produits pour garantir un ajustement parfait et une finition impeccable.</p>
+							</li>
+							<br>
+							<li style="display:flex; gap: 1.5rem">
+								<span style="font-size: 1.2em;">📞
+								</span>
+								<p>
+									<span>Service Après-Vente :
+									</span>Notre relation avec vous ne s'arrête pas à la livraison. Nous offrons un service après-vente pour assurer votre entière satisfaction.</p>
+							</li>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="Block_gallery">
+					<h4>Galerie Photo</h4>
+					<p>Plongez dans l'univers de
+						<span>belbois</span>.</p>
+					<div class="gallery_container">
+						<img class="item item1" src="Images/ouvrier-du-batiment-utilise-pistolet-clous-pneumatique_1280275-231940.avif" alt="Bear 1" style="height: 100%; width: 100%"/>
+						<img class="item item2" src="Images/communication-and-contact-us-or-customer-support-hotline-people-connect-hand-using-a-laptop-and-touching-on-virtual-screen-contact-icons-email-and-address-live-chat-with-internet-wifi-photo.jpg" alt="Bear 2" style="height: 100%; width: 100%"/>
+						<img class="item item3" src="Images/artisan-faisant-vue-cote-coupe-bois_23-2150104762.avif" alt="Bear 3" style="height: 100%; width: 100%"/>
+						<img class="item item4" src="Images/morceaux-bois-outils-pour-construction-reparation-table-bois_181624-51622.avif" alt="Bear 4" style="height: 100%; width: 100%"/>
+						<img class="item item5" src="Images/outils-travail_1261838-5866.jpg" alt="Bear 5" style="height: 100%; width: 100%"/>
+					</div>
+					<br>
+					<div class="boutton">
+						<a href="{{ path('menu_Boutique') }}">Parcourez notre boutique >>></a>
+					</div>
+				</div>
+
+
+				<div class="contact-section">
+					<div class="contact-image">
+						<img src="Images/coup-moyen-homme-reparant-articles-mode_23-2150627997-removebg-preview.png" alt="Contact Image">
+					</div>
+					<div class="contact-form">
+						<h4>Contactez nous!</h4>
+						<p>Vous avez des questions ou besoin d'aide ? Contactez-nous via le formulaire ci-dessous ou via
+							<a href="https://wa.me/+22994454646">WhatsApp</a>.</p>
+						{{ form_start(form) }}
+						<div class="form-row">
+							<div class="form-group">
+								{{ form_label(form.name) }}
+								{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+							</div>
+							<div class="form-group">
+								{{ form_label(form.email) }}
+								{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(form.message) }}
+							{{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+						</div>
+						{{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+						{{ form_end(form) }}
+					</div>
+				</div>
+
+
+			</div>
+		{% endblock %}

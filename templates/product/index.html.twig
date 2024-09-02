@@ -16,6 +16,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -27,6 +28,7 @@
         {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
+                <td><img src="{{ asset('uploads/images/'~product.image) }}" style="width : 150px; height : 150px"/></td>
                 <td>{{ product.name }}</td>
                 <td>
                     {% if product.description|length > 80 %}

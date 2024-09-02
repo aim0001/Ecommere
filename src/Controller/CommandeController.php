@@ -10,6 +10,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\ProductRepository;
 use App\Services\Cart;
+use App\Services\StripePayment;
 use DateTime;
 use Doctrine\Common\Collections\Expr\Value;
 use Doctrine\ORM\EntityManager;
@@ -36,7 +37,7 @@ class CommandeController extends AbstractController
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil active'],
-            ['label' => 'Galerie_de_Meubles', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
+            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 
@@ -51,14 +52,15 @@ class CommandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($commande->isPayOnDelivery()) {
-
+            
                 if (!empty($data['total'])) {
-                    $commande->setTotalPrice($data['total']);
+                    $totalPrice = $data['total'] + $commande->getCity()->getShippingCost();
+                    $commande->setTotalPrice($totalPrice);
                     $commande->setCreatedAt(new \DateTimeImmutable());
-
+                    $commande->setPaymentCompleted(0);
                     $entityManager->persist($commande);
                     $entityManager->flush();
+
 
                     foreach ($data['cart'] as $value) {
                         $commandeProduct = new ProductCommande();
@@ -69,24 +71,39 @@ class CommandeController extends AbstractController
                         $entityManager->persist($commandeProduct);
                         $entityManager->flush();
                     }
+
+                    if ($commande->isPayOnDelivery()){
+
+                        $session->set('cart', []);
+
+                        $html = $this->renderView('mail/commandeConfirm.html.twig', [
+                            'commande' => $commande
+                        ]);
+        
+                        $email = (new Email())
+                            ->from('tbelbois@gmail.com')
+                            ->to($commande->getEmail())
+                            ->subject('Confirmation de reception de la commande')
+                            ->html($html);
+        
+                            $this->mailer->send($email);
+                            
+                        return $this->redirectToRoute('commande_ok_message');
+
+                    }
+
+                    $payment = new StripePayment();
+
+                    $shippingCost = $commande->getCity()->getShippingCost();
+
+                    $payment->startPayment($data, $shippingCost, $commande->getId());
+        
+                    $stripeRedirectUrl = $payment->getStripeRedirectUrl();
+        
+                    return $this->redirect($stripeRedirectUrl);
+
                 }
 
-                $session->set('cart', []);
-
-                $html = $this->renderView('mail/commandeConfirm.html.twig', [
-                    'commande' => $commande
-                ]);
-
-                $email = (new Email())
-                    ->from('tbelbois@gmail.com')
-                    ->to($commande->getEmail())
-                    ->subject('Confirmation de reception de la commande')
-                    ->html($html);
-
-                    $this->mailer->send($email);
-                    
-                return $this->redirectToRoute('commande_ok_message');
-            }
         }
 
 
@@ -107,16 +124,26 @@ class CommandeController extends AbstractController
         return new Response(json_encode(['status' => 200, "message" => "on", 'content' => $cityShippingPrice]));
     }
 
-    #[Route('/editor/commande', name: 'app_commandes_shows')]
-    public function getAllOrder(CommandeRepository $commandeRepository, Request $request, PaginatorInterface $paginator): Response
+    #[Route('/editor/commande/{type}/', name: 'app_commandes_shows')]
+    public function getAllOrder($type, CommandeRepository $commandeRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil active'],
-            ['label' => 'Galerie_de_Meubles', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
+            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 
-        $data = $commandeRepository->findBy([], ['id' => 'DESC']);
+        if ($type == 'is-completed') {
+            $data = $commandeRepository->findBy(['isCompleted'=>1], ['id' => 'DESC']);   
+        }elseif ($type == 'not-completed') {
+            $data = $commandeRepository->findBy(['isCompleted'=>null,'payOnDelivery'=>1], ['id' => 'DESC']);
+        }elseif ($type == 'pay-on-stripe-not-delivered') {
+            $data = $commandeRepository->findBy(['isCompleted'=>null,'payOnDelivery'=>0, 'isPaymentCompleted'=>1], ['id' => 'DESC']);
+        }elseif ($type == 'pay-on-stripe-is-delivered') {
+            $data = $commandeRepository->findBy(['isCompleted'=>1,'payOnDelivery'=>0, 'isPaymentCompleted'=>1], ['id' => 'DESC']);
+        }else{
+            $data = $commandeRepository->findBy([], ['id' => 'DESC']);
+        }
 
         $commande =  $paginator->paginate(
             $data,  // Page a paginer
@@ -131,14 +158,14 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/editor/commande/{id}/is-completed/update', name: 'app_orders_is_completed_update')]
-    public function isCompleted($id, CommandeRepository $commandeRepository, EntityManagerInterface $entityManager): Response
+    public function isCompleted($id, CommandeRepository $commandeRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $commande = $commandeRepository->find($id);
         $commande->setCompleted(true);
         $entityManager->flush();
         $this->addFlash('success', 'modification effectuée');
 
-        return $this->redirectToRoute('app_commandes_shows');
+        return $this->redirect($request->headers->get('referer'));
     }
 
 
@@ -157,7 +184,7 @@ class CommandeController extends AbstractController
     {
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil active'],
-            ['label' => 'Galerie_de_Meubles', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
+            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 
@@ -165,4 +192,5 @@ class CommandeController extends AbstractController
             'menuItems' => $menuItems,
         ]);
     }
+
 }

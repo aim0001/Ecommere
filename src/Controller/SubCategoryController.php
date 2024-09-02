@@ -29,7 +29,7 @@ class SubCategoryController extends AbstractController
 
         $menuItems=[
             ['label'=>'Accueil', 'route'=>'menu_Accueil', 'class'=> 'menu_Accueil'],
-            ['label'=>'Galerie_de_Meubles', 'route'=>'menu_Galerie', 'class'=> 'menu_Galerie'],
+            ['label'=>'A propos', 'route'=>'menu_Galerie', 'class'=> 'menu_Galerie'],
             ['label'=>'Boutique', 'route'=>'menu_Boutique', 'class'=> 'menu_Boutique']
         ];
 
@@ -46,7 +46,7 @@ class SubCategoryController extends AbstractController
 
         $menuItems=[
             ['label'=>'Accueil', 'route'=>'menu_Accueil', 'class'=> 'menu_Accueil'],
-            ['label'=>'Galerie_de_Meubles', 'route'=>'menu_Galerie', 'class'=> 'menu_Galerie'],
+            ['label'=>'A propos', 'route'=>'menu_Galerie', 'class'=> 'menu_Galerie'],
             ['label'=>'Boutique', 'route'=>'menu_Boutique', 'class'=> 'menu_Boutique']
         ];
 
@@ -74,7 +74,7 @@ class SubCategoryController extends AbstractController
 
         $menuItems=[
             ['label'=>'Accueil', 'route'=>'menu_Accueil', 'class'=> 'menu_Accueil'],
-            ['label'=>'Galerie_de_Meubles', 'route'=>'menu_Galerie', 'class'=> 'menu_Galerie'],
+            ['label'=>'A propos', 'route'=>'menu_Galerie', 'class'=> 'menu_Galerie'],
             ['label'=>'Boutique', 'route'=>'menu_Boutique', 'class'=> 'menu_Boutique']
         ];
 
@@ -98,7 +98,7 @@ class SubCategoryController extends AbstractController
 
         $menuItems=[
             ['label'=>'Accueil', 'route'=>'menu_Accueil', 'class'=> 'menu_Accueil'],
-            ['label'=>'Galerie_de_Meubles', 'route'=>'menu_Galerie', 'class'=> 'menu_Galerie'],
+            ['label'=>'A propos', 'route'=>'menu_Galerie', 'class'=> 'menu_Galerie'],
             ['label'=>'Boutique', 'route'=>'menu_Boutique', 'class'=> 'menu_Boutique']
         ];
 

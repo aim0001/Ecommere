@@ -1,146 +1,160 @@
 <style>
-	.container {
-		width: 80%;
-		margin: 0 auto;
-		font-family: Arial, sans-serif;
-	}
+    .container {
+        width: 80%; /* Utilisez la largeur totale de la page */
+        margin: 0 auto;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-	.table {
-		width: 100%;
-		margin-bottom: 20px;
-		border-collapse: collapse;
-		font-size: 16px;
-	}
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px; /* Réduire la taille de la police pour ajuster le contenu */
+        page-break-inside: avoid; /* Empêche les sauts de page à l'intérieur de l'élément */
+    }
 
-	.table h3 {
-		margin-bottom: 20px;
-		font-size: 24px;
-		font-weight: bold;
-	}
+    .table h3 {
+        margin-top: 2rem;
+        font-size: 30px; /* Réduire la taille de la police */
+        font-weight: 400;
+        color: rgb(212, 0, 0);
+        page-break-inside: avoid;
+    }
 
-	.table hr {
-		border: 1px solid #ccc;
-	}
+    .table hr {
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
 
-	.table thead th {
-		text-align: left;
-		padding: 8px;
-		background-color: #f8f8f8;
-		border-bottom: 2px solid #ccc;
-	}
+    .table thead th {
+        text-align: left;
+        padding: 5px; /* Réduire la taille de padding */
+        background-color: #f8f8f8;
+        border-bottom: 1px solid #ccc;
+    }
 
-	.table tbody tr {
-		border-bottom: 1px solid #eee;
-	}
+    .table tbody tr {
+        border-bottom: 1px solid #eee;
+    }
 
-	.table tbody td {
-		padding: 10px;
-		vertical-align: middle;
-	}
+    .table tbody td {
+        padding: 5px; /* Réduire la taille de padding */
+        vertical-align: middle;
+    }
 
-	.table-bordered {
-		border: 1px solid #ddd;
-	}
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
 
-	.table-bordered thead th,
-	.table-bordered tbody td {
-		border: 1px solid #ddd;
-		padding: 12px;
-	}
+    .table-bordered thead th,
+    .table-bordered tbody td {
+        border: 1px solid #ddd;
+        padding: 8px; /* Réduire la taille de padding */
+        page-break-inside: avoid;
+    }
 
-	.table-bordered thead th {
-		background-color: #f2f2f2;
-	}
+    .table-bordered thead th {
+        background-color: rgb(202, 0, 0);
+        color: white;
+    }
 
-	div p {
-		font-size: 18px;
-		margin: 5px 0;
-	}
+    div p {
+        font-size: 14px; /* Réduire la taille de la police */
+        margin: 2px 0; /* Réduire la taille de marge */
+        page-break-inside: avoid;
+    }
 
-	div p span {
-		font-weight: bold;
-	}
+    div p span {
+        font-weight: bold;
+    }
 
-	div hr {
-		margin: 10px 0;
-		border: 1px solid #ccc;
-	}
+    div .total,
+    div .shipping-cost {
+        text-align: right;
+        font-size: 14px; /* Réduire la taille de la police */
+        margin: 5px 0; /* Réduire la taille de marge */
+    }
 
-	div .total,
-	div .shipping-cost {
-		text-align: right;
-		font-size: 18px;
-		margin: 10px 0;
-	}
+    /* S'assure que la page est remplie mais ne saute pas */
+    @page {
+        size: A4;
+        margin: 10px; /* Réduire la marge de la page */
+    }
 </style>
+
 <div class="container">
-	<br>
-	<table class="table">
-		<h3 style="text-align : start; ">Facture n°{{ commande.id }}</h3>
-		<hr>
-		<span>Date:
-			{{ commande.createdAt|date }}</span>
-		<br><br><br>
-		<h4 style="margin-left: 4rem; text-align: start">Information du client
-		</h4>
+    <img src="{{ logo_path }}" style="width : 300px" alt="Logo">
+    <br><br><br>
+    <div style="float: right; font-size: 16px">
+        <span style="color: red">DATE :</span> {{ commande.createdAt|date('d-m-Y  /  H:i') }}
+    </div>
+    <table class="table">
+        <h3>Facture n°{{ commande.id }}</h3>
+        <hr>
+        <br>
+        <h4 style="margin-left: 4rem; text-align: start; color: rgb(212, 0, 0);">Information du client</h4>
+        <br>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+            </tr>
+        </thead> 
+        <tbody>
+            <tr>
+                <td>{{ commande.firstName }}</td>
+                <td>{{ commande.lastName }}</td>
+                <td>{{ commande.phone }}</td>
+                <td>{{ commande.adresse }}</td>
+                <td>{{ commande.city.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <table class="table table-bordered">
+        <h4 style="margin-left: 4rem; text-align: start; color: rgb(212, 0, 0);">Corps de la commande</h4>
+        <br>
+        <thead>
+            <tr>
+                <th>Nom du produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Prix total</th>
+            </tr>
+        </thead>
+        {% for product in commande.productCommandes %}
+        <tbody>
+            <tr>
+                <td>{{ product.product.name }}</td>
+                <td>{{ product.product.price }}</td>
+                <td>{{ product.qte }}</td>
+                <td>{{ product.qte * product.product.price }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    <div style="text-align: end">
+        <p>
+            <span style="color: rgb(154, 0, 0)">Total :</span>
+            <span style="font-weight : 500">{{ commande.totalPrice }} FCFA</span>
+        </p>
+        <br>
+        <p>
+            <span style="color: rgb(154, 0, 0)">Frais de livraison :</span>
+            <span style="font-weight : 500">{{ commande.city.shippingCost }} FCFA</span>
+        </p>
+        <p>
+            <span style="color: rgb(154, 0, 0)">Total à payer :</span>
+            <span style="font-weight : 600; font-size : 20px">{{ commande.totalPrice + commande.city.shippingCost }} FCFA</span>
+        </p>
 		<br>
-		<thead>
-			<tr>
-				<th>Nom</th>
-				<th>Prénom</th>
-				<th>Téléphone</th>
-				<th>Adresse</th>
-				<th>Ville</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>{{ commande.firstName }}</td>
-				<td>{{ commande.lastName }}</td>
-				<td>{{ commande.phone }}</td>
-				<td>{{ commande.adresse }}</td>
-				<td>{{ commande.city.name  }}</td>
-			</tr>
-		</tbody>
-	</table>
-	<br>
-	<table class="table table-bordered">
-		<h4 style="margin-left: 4rem; text-align: start">Corps de la commande</h4>
-		<br>
-		<thead>
-			<tr>
-				<th>Nom du produit</th>
-				<th>Prix</th>
-				<th>Quantité</th>
-				<th>Prix total</th>
-			</tr>
-		</thead>
-		{% for product in commande.productCommandes %}
-			<tbody>
-				<tr>
-					<td>{{ product.product.name }}</td>
-					<td>{{ product.product.price }}</td>
-					<td>{{ product.qte }}</td>
-					<td>{{ product.qte * product.product.price }}</td>
-				</tr>
-			</tbody>
-		{% endfor %}
-	</table>
-	<div style="text-align: end">
-		<p>Total :
-			<span style="font-weight : 500">{{ commande.totalPrice }}
-				FCFA</span>
-		</p>
-		<p>Frais de livraison :
-			<span style="font-weight : 500">{{ commande.city.shippingCost }}
-				FCFA</span>
-		</p>
-		<hr>
-		<p>
-			Total à payer :
-			<span style="font-weight : 600; font-size : 25px">{{ commande.totalPrice + commande.city.shippingCost}}
-				FCFA</span>
-		</p>
-	</div>
-	<br><br><hr><br>
+    </div>
+    <br>
+    <div style="border-top: 3px solid rgb(202, 0, 0); text-align: center;">
+        <br>
+        <p style="font-size: 14px">RCCM RB/PN/13 A251 - IFU : 1200901364507 - Tel : +229 94 45 46 46</p>
+        <p style="font-size: 14px">Adresse: PK6 en face de l'imprimerie TUNDE a Cotonou. Yakossi II à Parakou</p>
+    </div>
 </div>
