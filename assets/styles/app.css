@@ -70,7 +70,7 @@ header {
     background: whitesmoke;
 	position: sticky;
     top: 0;
-    z-index: 9000;
+    z-index: 5000;
 }
 
 body {
@@ -1092,4 +1092,233 @@ a:hover {
 
 .whatsapp-icon:hover {
     transform: scale(1.1); /* Animation simple pour l'effet de survol */
+}
+
+
+/* GALERIE_PHOTO */
+.Galerie_main{
+    display: flex; /* Utilisation de Flexbox pour aligner la galerie et la section sélectionnée côte à côte */
+    gap: 20px; /* Espace entre les deux sections */
+    padding-inline: 50px;
+    padding-block: 30px;
+    width: 100%;
+
+}
+/* Conteneur flex pour la galerie et la section des produits sélectionnés */
+.galerie-container {
+    display: flex;
+    justify-content: space-between; /* Espace entre les éléments */
+    gap: 20px; /* Espace entre la galerie et la section des produits sélectionnés */
+}
+.Galerie_block{
+    display: grid;
+    grid-template-columns: repeat(4, 250px);
+    gap: 3px;
+    flex-basis: 70%;
+}
+
+.Galerie_block img {
+    width: 250px;
+    height: 200px;
+    border-radius: 3px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.Galerie_block img:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+/* Styles pour la modale */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 9000;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background-color: whitesmoke;
+    margin-inline: 150px;
+    margin-block: 40px;
+    padding-inline: 50px;
+    padding-block: 50px;
+    border-radius: 5px;
+    display: flex;
+    gap: 20px;
+    max-width: 80%;
+}
+
+.modal-content img {
+    width: 65%;
+    height: auto;
+}
+
+.modal-content .details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-content .details h3 {
+    color: #1A3F6D;
+}
+
+.modal-content .details p {
+    color: #333;
+    font-size: 16px;
+}
+
+.modal-content .details button {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    background-color: #1a3f6d;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content .details button:hover {
+    background-color: #163f9b;
+}
+
+/* Fermer la modale */
+.close {
+    color: white;
+    background-color: red;
+    border-radius: 50%;
+    padding-inline: 8px;
+    padding-block: 5px;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #bbb;
+}
+
+.modal_img_desc{
+    display: flex;
+    gap: 2rem;
+}
+
+#modal-description{
+    border: #4040404b 1px solid;
+	padding: 15px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	border-radius: 3px;
+	width: 280px;
+	height: 500px;
+	overflow-y: auto;
+}
+
+#btn-discussion{
+    background-color: #4CAF50;
+}
+#btn-selectionner{
+    background-color: rgb(192, 192, 192);
+    color: #000;
+    font-weight: 600;
+}
+
+/* Section des produits sélectionnés */
+.selected-products {
+    flex-basis: 30%; /* La section des produits sélectionnés prend 30% de la largeur */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    overflow-y: auto; /* Ajoute un scroll si la liste dépasse la hauteur de l'écran */
+    max-height: 100%; /* Limite la hauteur maximale pour éviter le débordement */
+}
+
+.selected-products h2 {
+    color: #1A3F6D;
+}
+
+.selected-products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 80px); /* Affiche 2 produits par ligne */
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.selected-product-thumbnail-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+}
+
+.selected-product-thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* Style de la croix pour fermer (supprimer) le produit */
+.remove-product-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: grey;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding-inline: 4px;
+    padding-block: 1px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.remove-product-btn:hover {
+    background-color: rgb(71, 71, 71);
+}
+
+/* Bouton Valider */
+#btn-valider {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#btn-valider:hover {
+    background-color: #218838;
+}
+
+/* Conteneur du produit pour positionner la checkbox */
+.product {
+    position: relative; /* Nécessaire pour que le checkbox soit positionné relativement à ce conteneur */
+}
+
+/* Positionnement du checkbox */
+.product-checkbox {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 10; /* Met le checkbox au-dessus de l'image */
+    transform: scale(1.2); /* Pour agrandir un peu la taille de la checkbox */
+    cursor: pointer; /* Ajoute un pointeur pour indiquer que c'est cliquable */
+}
+.vertical-separator{
+    border-left: #00000056 solid 1px;
+    border-top: #00000056 solid 1px;
+    border-radius: 3px;
+    padding-inline: 10px;
+    padding-block: 20px;
 }

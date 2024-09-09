@@ -21,7 +21,7 @@ class StripeController extends AbstractController
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil'],
-            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie active'],
+            ['label' => 'Aperçus', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie active'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 
@@ -39,7 +39,7 @@ class StripeController extends AbstractController
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil'],
-            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie active'],
+            ['label' => 'Aperçus', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie active'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 

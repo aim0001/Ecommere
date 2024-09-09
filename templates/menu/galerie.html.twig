@@ -1,9 +1,224 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gallerie_photo{% endblock %}
+{% block title %}Gallerie_photo
+{% endblock %}
 
 {% block body %}
-<div style="padding-block: 300px">
-    <p>No found !!!!</p>
-</div>
+	<main
+		class="Galerie_main">
+		{# <div class="galerie-container">
+		        <div>
+		            <h1 style="color: #1A3F6D;">Galerie de meuble</h1>
+		            <h1><hr></h1> #}
+		<div class="Galerie_block">
+			{% for product in products %}
+    <div class="product">
+        <img src="{{ asset('uploads/images/'~product.image) }}" 
+             class="B_image item{{ loop.index }}" 
+             alt="..." 
+             data-name="{{ product.name }}" 
+             data-description="{{ product.description }}" 
+             data-price="{{ product.price }}"
+             data-image="{{ asset('uploads/images/'~product.image) }}" 
+             onclick="openModal(this)"/>
+        <input type="checkbox" class="product-checkbox" value="{{ product.id }}" onchange="handleCheckboxChange(this)"/>
+    </div>
+{% endfor %}
+
+		</div>
+		{# </div> #}
+		<div
+			class="vertical-separator"><h6>Sélection(s) :</h6>
+			<!-- Section des produits sélectionnés -->
+			<div id="selectedProducts" class="selected-products" style="display: none;">
+				<h6>Produits sélectionnés</h6>
+				<div class="selected-products-grid"></div>
+                <br>
+                <p style="text-align: start">Discuter des produits choisis</p>
+				<button id="btn-valider" style="display: none;" onclick="submitSelection()">Discussion</button>
+			</div>
+			{# </div> #}
+		</div>
+	</main>
+
+
+	<!-- Modale -->
+	<div id="myModal" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="closeModal()">&times;</span>
+            <div class="details">
+				<h3 id="modal-name" style="text-align: start; margin-left: 5rem;"></h3>
+				<div style="display:flex; gap: 1rem">
+					<button id="btn-discussion" onclick="openWhatsAppDiscussion()">Discussion
+						<img style="width:3rem" src="Images/gratis-png-whatsapp-logo-whatsapp-computer-icons-logo-email-mensajeria-instantanea-red-social-removebg-preview.png"></button>
+					<button id="btn-selectionner">Sélectionner</button>
+				</div>
+			</div>
+			<div class="modal_img_desc"> 
+				<img id="modal-image" src="" alt="Image du produit">
+				<p id="modal-description"></p>
+			</div>
+		</div>
+	</div>
+
+	{{ knp_pagination_render(products, 'layouts/pagination.html.twig') }}
+
+	<script>
+		let selectedProducts = [];
+// Fonction pour ouvrir la modale et afficher les détails du produit
+function openModal(element) {
+    const modal = document.getElementById('myModal');
+    const modalImage = document.getElementById('modal-image');
+    const modalName = document.getElementById('modal-name');
+    const modalDescription = document.getElementById('modal-description');
+    const productPrice = element.dataset.price;
+    const productId = element.closest('.product').querySelector('.product-checkbox').value;
+    
+    // Remplir la modale avec les informations du produit
+    modalImage.src = element.dataset.image;
+    modalName.textContent = element.dataset.name;
+    modalDescription.textContent = element.dataset.description;
+
+    // Vérifier si le produit est déjà sélectionné
+    const isSelected = selectedProducts.includes(productId);
+    const selectButton = document.getElementById('btn-selectionner');
+    selectButton.textContent = isSelected ? "Désélectionner" : "Sélectionner";
+    selectButton.dataset.productId = productId; // Sauvegarder l'ID du produit pour le bouton
+
+    modal.style.display = "block";
+}
+
+document.getElementById('btn-selectionner').addEventListener('click', function() {
+    const productId = this.dataset.productId;
+    const checkbox = document.querySelector(`input.product-checkbox[value="${productId}"]`);
+
+    // Basculer l'état du checkbox (coché/non coché)
+    checkbox.checked = !checkbox.checked;
+
+    // Gérer la sélection ou la désélection du produit
+    handleCheckboxChange(checkbox);
+
+    // Fermer la modale après la sélection ou la désélection
+    closeModal();
+});
+
+// Fonction pour fermer la modale
+function closeModal() {
+const modal = document.getElementById('myModal');
+modal.style.display = "none";
+}
+
+// Fonction pour gérer les changements des cases à cocher
+function handleCheckboxChange(checkbox) {
+    const selectedProductsSection = document.getElementById('selectedProducts');
+    const selectedProductsGrid = document.querySelector('.selected-products-grid');
+    const btnValider = document.getElementById('btn-valider');
+
+    // Récupérer les informations du produit
+    const productImage = checkbox.closest('.product').querySelector('img').src;
+    const productId = checkbox.value;
+
+    if (checkbox.checked) { // Ajouter le produit à la liste des produits sélectionnés
+        selectedProducts.push(productId);
+
+        // Créer un conteneur pour le produit sélectionné et la croix de suppression
+        const selectedProductContainer = document.createElement('div');
+        selectedProductContainer.className = 'selected-product-thumbnail-container';
+        selectedProductContainer.dataset.id = productId;
+
+        // Créer l'élément image pour le produit sélectionné
+        const selectedProductElement = document.createElement('img');
+        selectedProductElement.src = productImage;
+        selectedProductElement.className = 'selected-product-thumbnail';
+
+        // Créer la croix de suppression
+        const removeButton = document.createElement('button');
+        removeButton.className = 'remove-product-btn';
+        removeButton.innerHTML = '&times;';
+        removeButton.onclick = function () {
+            removeProductFromSelection(productId);
+        };
+
+        // Ajouter l'image et la croix de suppression dans le conteneur
+        selectedProductContainer.appendChild(selectedProductElement);
+        selectedProductContainer.appendChild(removeButton);
+        selectedProductsGrid.appendChild(selectedProductContainer);
+    } else { // Retirer le produit de la liste des produits sélectionnés
+        removeProductFromSelection(productId);
+    }
+
+    // Afficher ou masquer la section des produits sélectionnés
+    selectedProductsSection.style.display = selectedProducts.length > 0 ? 'block' : 'none';
+    btnValider.style.display = selectedProducts.length > 0 ? 'block' : 'none';
+}
+
+// Fonction pour retirer un produit de la sélection
+function removeProductFromSelection(productId) {
+    // Retirer le produit de la liste sélectionnée
+    selectedProducts = selectedProducts.filter(id => id !== productId);
+
+    // Retirer l'image correspondante de la section des produits sélectionnés
+    const selectedProductsGrid = document.querySelector('.selected-products-grid');
+    const productThumbnailContainer = selectedProductsGrid.querySelector(`[data-id="${productId}"]`);
+    selectedProductsGrid.removeChild(productThumbnailContainer);
+
+    // Décocher la case à cocher associée au produit
+    const checkbox = document.querySelector(`input.product-checkbox[value="${productId}"]`);
+    if (checkbox) {
+        checkbox.checked = false;
+    }
+
+    // Mettre à jour l'affichage de la section des produits sélectionnés
+    const selectedProductsSection = document.getElementById('selectedProducts');
+    const btnValider = document.getElementById('btn-valider');
+    selectedProductsSection.style.display = selectedProducts.length > 0 ? 'block' : 'none';
+    btnValider.style.display = selectedProducts.length > 0 ? 'block' : 'none';
+}
+
+// Fonction pour rediriger vers la discussion WhatsApp avec le produit sélectionné
+function openWhatsAppDiscussion() {
+    const productName = document.getElementById('modal-name').textContent.split(" - Prix : ")[0]; // Nom du produit
+    const productPrice = document.getElementById('modal-name').textContent.split(" - Prix : ")[1]; // Récupérer le prix directement dans le `data-price`
+    const productImage = document.getElementById('modal-image').src;
+
+    // Si le prix est indéfini, afficher un message par défaut
+    const priceMessage = productPrice ? `Prix : ${productPrice}` : "Prix non disponible";
+
+    // Message à envoyer via WhatsApp avec le nom, prix et image
+    const message = `Bonjour, je suis intéressé par ce produit : ${productName}.\n${priceMessage}.\nVoici l'image : ${productImage}`;
+
+    // URL de WhatsApp avec le message encodé
+    const phoneNumber = '22965732564'; // Numéro de téléphone au format international sans + ni espaces
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    // Redirection vers WhatsApp
+    window.open(whatsappUrl, '_blank');
+}
+
+
+function submitSelection() {
+    const selectedProductsGrid = document.querySelectorAll('.selected-product-thumbnail');
+    const phoneNumber = "22965732564"; // Numéro WhatsApp avec le code pays
+    let message = "Bonjour, voici les produits que j'ai sélectionnés :%0A"; // Message d'introduction
+
+    selectedProductsGrid.forEach((product, index) => {
+        const productName = product.closest('.selected-product-thumbnail-container').querySelector('img').dataset.name; // Nom du produit
+        const productPrice = product.closest('.selected-product-thumbnail-container').querySelector('img').dataset.price; // Prix du produit
+        const productImageURL = product.src; // URL de l'image du produit
+
+        const priceMessage = productPrice ? `Prix : ${productPrice} FCFA` : "Prix non disponible";
+
+        message += `%0AProduit ${index + 1} : ${productName}%0A${priceMessage}%0AImage : ${productImageURL}%0A`;
+    });
+
+    // Encodage de l'URL pour WhatsApp
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    // Rediriger vers WhatsApp
+    window.open(whatsappURL, '_blank');
+}
+
+
+
+</script>
 {% endblock %}

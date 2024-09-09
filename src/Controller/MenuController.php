@@ -76,7 +76,7 @@ class MenuController extends AbstractController
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil active'],
-            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
+            ['label' => 'Aperçus', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 
@@ -90,19 +90,27 @@ class MenuController extends AbstractController
 
 
     #[Route('/galerie', name: 'menu_Galerie')]
-    public function gallerie(CategoryRepository $categoryRepository): Response
+    public function gallerie(CategoryRepository $categoryRepository, ProductRepository $productRepository, Request $request, PaginatorInterface $paginator): Response
     {
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil'],
-            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie active'],
+            ['label' => 'Aperçus', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie active'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
+
+        $data = $productRepository->findBy([], ['id' => "DESC"]);
+        $products =  $paginator->paginate(
+            $data,  // Page a paginer
+            $request->query->getInt('page', 1), // Le numero de la page par defaut est 1
+            20 // Max par page
+        );
 
 
         return $this->render('menu/galerie.html.twig', [
             'menuItems' => $menuItems,
             'categories' => $categoryRepository->findAll(),
+            'products' => $products,
         ]);
     }
 
@@ -121,7 +129,7 @@ class MenuController extends AbstractController
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil'],
-            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
+            ['label' => 'Aperçus', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique active']
         ];
 
@@ -165,7 +173,7 @@ class MenuController extends AbstractController
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil'],
-            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
+            ['label' => 'Aperçus', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique active']
         ];
 
@@ -203,7 +211,7 @@ class MenuController extends AbstractController
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil'],
-            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
+            ['label' => 'Aperçus', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique active']
         ];
 
@@ -287,7 +295,7 @@ class MenuController extends AbstractController
 
         $menuItems = [
             ['label' => 'Accueil', 'route' => 'menu_Accueil', 'class' => 'menu_Accueil active'],
-            ['label' => 'A propos', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
+            ['label' => 'Aperçus', 'route' => 'menu_Galerie', 'class' => 'menu_Galerie'],
             ['label' => 'Boutique', 'route' => 'menu_Boutique', 'class' => 'menu_Boutique']
         ];
 

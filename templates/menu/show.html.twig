@@ -1,137 +1,143 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Boutique{% endblock %}
+{% block title %}Boutique
+{% endblock %}
 
 {% block body %}
-<body>
-    <main x-data="{
-									        cartCount: 0,
-									        products: {{ products|json_encode|raw }},
-									        productStates: {},
-									        init() {
-									            this.cartCount = Object.values(this.productStates).filter(state => state).length;
-									        },
-									        async toggleCart(productId) {
-									            if (!this.productStates[productId]) {
-									                this.productStates[productId] = false;
-									            }
-									            this.productStates[productId] = !this.productStates[productId];
-									            this.cartCount += this.productStates[productId] ? 1 : -1;
-									            localStorage.setItem('productStates', JSON.stringify(this.productStates));
+	<body>
+		<main x-data="{
+												        cartCount: 0,
+												        products: {{ products|json_encode|raw }},
+												        productStates: {},
+												        init() {
+												            this.cartCount = Object.values(this.productStates).filter(state => state).length;
+												        },
+												        async toggleCart(productId) {
+												            if (!this.productStates[productId]) {
+												                this.productStates[productId] = false;
+												            }
+												            this.productStates[productId] = !this.productStates[productId];
+												            this.cartCount += this.productStates[productId] ? 1 : -1;
+												            localStorage.setItem('productStates', JSON.stringify(this.productStates));
 			
-									            const addUrl = '{{ path('app_cart_new', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
-									            const removeUrl = '{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
+												            const addUrl = '{{ path('app_cart_new', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
+												            const removeUrl = '{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId);
 			
-									            const url = this.productStates[productId] ? addUrl : removeUrl;
+												            const url = this.productStates[productId] ? addUrl : removeUrl;
 			
-									            try {
-									                await fetch(url, { method: 'GET' });
-									                this.refreshCart();
-									            } catch (error) {
-									                console.error('Error:', error);
-									            }
-									        },
-									        async refreshCart() {
-									            const response = await fetch('{{ path('app_cart') }}', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-									            const html = await response.text();
-									            const parser = new DOMParser();
-									            const doc = parser.parseFromString(html, 'text/html');
-									            const newCartContent = doc.querySelector('#paniers').innerHTML;
-									            document.querySelector('#paniers').innerHTML = newCartContent;
-									        },
-									        async clearCart() {
-									            try {
-									                await fetch('{{ path('app_cart_remove') }}', { method: 'GET' });
-									                this.productStates = {};
-									                localStorage.setItem('productStates', JSON.stringify(this.productStates));
-									                this.cartCount = 0;
-									                showContent('achats');
-									            } catch (error) {
-									                console.error('Error:', error);
-									            }
-									        },
-									        async removeFromCart(productId) {
-									            try {
-									                await fetch('{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
-									                this.productStates[productId] = false;
-									                localStorage.setItem('productStates', JSON.stringify(this.productStates));
-									                this.cartCount -= 1;
-									                this.refreshCart();
-									            } catch (error) {
-									                console.error('Error:', error);
-									            }
-									        },
+												            try {
+												                await fetch(url, { method: 'GET' });
+												                this.refreshCart();
+												            } catch (error) {
+												                console.error('Error:', error);
+												            }
+												        },
+												        async refreshCart() {
+												            const response = await fetch('{{ path('app_cart') }}', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+												            const html = await response.text();
+												            const parser = new DOMParser();
+												            const doc = parser.parseFromString(html, 'text/html');
+												            const newCartContent = doc.querySelector('#paniers').innerHTML;
+												            document.querySelector('#paniers').innerHTML = newCartContent;
+												        },
+												        async clearCart() {
+												            try {
+												                await fetch('{{ path('app_cart_remove') }}', { method: 'GET' });
+												                this.productStates = {};
+												                localStorage.setItem('productStates', JSON.stringify(this.productStates));
+												                this.cartCount = 0;
+												                showContent('achats');
+												            } catch (error) {
+												                console.error('Error:', error);
+												            }
+												        },
+												        async removeFromCart(productId) {
+												            try {
+												                await fetch('{{ path('app_cart_product_remove', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
+												                this.productStates[productId] = false;
+												                localStorage.setItem('productStates', JSON.stringify(this.productStates));
+												                this.cartCount -= 1;
+												                this.refreshCart();
+												            } catch (error) {
+												                console.error('Error:', error);
+												            }
+												        },
 			
-											async incrementQuantity(productId) {
-												// Appelle une route ou fonction pour augmenter la quantité
-												// Exemple d'appel AJAX
-												try {
-													await fetch('{{ path('app_cart_increment', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
-													this.refreshCart();
-												} catch (error) {
-													console.error('Error:', error);
-												}
-											},
-											async decrementQuantity(productId) {
-												// Appelle une route ou fonction pour diminuer la quantité
-												// Exemple d'appel AJAX
-												try {
-													await fetch('{{ path('app_cart_decrement', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
-													this.refreshCart();
-												} catch (error) {
-													console.error('Error:', error);
-												}
-											}
+														async incrementQuantity(productId) {
+															// Appelle une route ou fonction pour augmenter la quantité
+															// Exemple d'appel AJAX
+															try {
+																await fetch('{{ path('app_cart_increment', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
+																this.refreshCart();
+															} catch (error) {
+																console.error('Error:', error);
+															}
+														},
+														async decrementQuantity(productId) {
+															// Appelle une route ou fonction pour diminuer la quantité
+															// Exemple d'appel AJAX
+															try {
+																await fetch('{{ path('app_cart_decrement', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', productId), { method: 'GET' });
+																this.refreshCart();
+															} catch (error) {
+																console.error('Error:', error);
+															}
+														}
 			
-									    }" x-init="init()" class="boutique">
-        <div class="tabs">
-            <div class="tab active-tab" onclick="showContent('achats')">Prix et Ventes</div>
-            <div class="tab" onclick="showContent('paniers')">PANIERS <span x-text="cartCount" class="notif"></span></div>
-        </div>
-    
-        <div class="tab-content active-content" id="achats">
-            <div class="B_block_product">
-                <div class="B_block-image_product">
-                    <img src="{{ asset('uploads/images/'~product.image) }}" class="B_image_product" alt="..."/>
-                </div>
-                <div class="B_sousBlock">
-                    <div class="B_sousBlock_product">
-                        <h2 class="B_price" style = "color : rgb(180, 102, 0); margin-left : 2rem">{{ product.price}} FCFA</h2>
-                        <h3 class="B_nom">{{ product.name }}</h3>
-                        <p class="B_description_product">{{ product.description }} ..</p>
-                        <a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})"
-                               :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien" x-text="productStates[{{ product.id }}] ? 'Retirer au panier' : 'Ajouter au panier'"></a>
-                    </div>
-                </div>
-            </div><br><br>
-             <h2 style ="text-align : start">Dernière mise à jourt</h2><br>
-            <div class="B_block">
-                {% for product in products %}
-                
-                <div class="B_block-image">
-                    <a href="{{ path('app_home_product_show',{'id':product.id}) }}" class="B_block-lien">
-                        <img src="{{ asset('uploads/images/'~product.image) }}" class="B_image" alt="..."/>
-                        <div class="B_sousBlock">
-                            <h6 class="B_nom">{{ product.name }}</h6>
-                            <span  style = "display : flex; gap : 10px">
-                                <p class="B_description">{{ product.description|slice(0,20) }} ..</p>
-                                | <h5 class="B_price" style = "color : rgb(180, 102, 0)">{{ product.price}} FCFA</h5>
-                            </span>
-                            <a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})"
-                               :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien"x-text="productStates[{{ product.id }}] ? 'Retirer au panier' : 'Ajouter au panier'">Ajouter au panier</a>
-                        </div>
-                    </a>
-                </div>
+												    }" x-init="init()" class="boutique">
+			<div class="tabs">
+				<div class="tab active-tab" onclick="showContent('achats')">Prix et Ventes</div>
+				<div class="tab" onclick="showContent('paniers')">PANIERS
+					<span x-text="cartCount" class="notif"></span>
+				</div>
+			</div>
 
-                {% endfor %}
-            </div>            
-        </div>
-        
-        {# PANIERS #}
+			<div class="tab-content active-content" id="achats">
+				<div class="B_block_product">
+					<div class="B_block-image_product">
+						<img src="{{ asset('uploads/images/'~product.image) }}" class="B_image_product" alt="..."/>
+					</div>
+					<div class="B_sousBlock">
+						<div class="B_sousBlock_product">
+							<h2 class="B_price" style="color : rgb(180, 102, 0); margin-left : 2rem">{{ product.price}}
+								FCFA</h2>
+							<h3 class="B_nom">{{ product.name }}</h3>
+							<p class="B_description_product">{{ product.description }}
+								..</p>
+							<a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})" :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien" x-text="productStates[{{ product.id }}] ? 'Retirer au panier' : 'Ajouter au panier'"></a>
+						</div>
+					</div>
+				</div><br><br>
+				<h2 style="text-align : start">Dernière mise à jourt</h2><br>
+				<div class="B_block">
+					{% for product in products %}
+
+						<div class="B_block-image">
+							<a href="{{ path('app_home_product_show',{'id':product.id}) }}" class="B_block-lien">
+								<img src="{{ asset('uploads/images/'~product.image) }}" class="B_image" alt="..."/>
+								<div class="B_sousBlock">
+									<h6 class="B_nom">{{ product.name }}</h6>
+									<span style="display : flex; gap : 10px">
+										<p class="B_description">{{ product.description|slice(0,20) }}
+											..</p>
+										|
+										<h5 class="B_price" style="color : rgb(180, 102, 0)">{{ product.price}}
+											FCFA</h5>
+									</span>
+									<a href="{{ path('app_cart_new', {'id': product.id}) }}" @click.prevent="toggleCart({{ product.id }})" :class="productStates[{{ product.id }}] ? 'added-to-cart' : ''" class="B_lien" x-text="productStates[{{ product.id }}] ? 'Retirer au panier' : 'Ajouter au panier'">Ajouter au panier</a>
+								</div>
+							</a>
+						</div>
+
+					{% endfor %}
+				</div>
+			</div>
+
+			{# PANIERS #}
 
 			<div class="tab-content" id="paniers">
-            <h4 style = "float : left">Votre Panier :</h4>
-            <br><br>
+				<h4 style="float : left">Votre Panier :</h4>
+				<br><br>
 				<table class="table">
 					<thead>
 						<tr>
@@ -155,8 +161,8 @@
 								<td>{{ item.product.price  * item.quantity }}</td>
 								<td>
 									<a href="#" @click.prevent="removeFromCart({{ item.product.id }})" class="sup">
-                                        <img src="{{ asset('Images/poubelle.png') }}" alt = ". . ." style = "width : 20px; height : 20px;">
-                                    </a>
+										<img src="{{ asset('Images/poubelle.png') }}" alt=". . ." style="width : 20px; height : 20px;">
+									</a>
 								</td>
 							</tr>
 
@@ -169,70 +175,72 @@
 						{% endfor %}
 					</tbody>
 				</table>
-                <br>
+				<br>
 
-                {# {{ knp_pagination_render(itemPaginate, 'layouts/panierPagination.html.twig') }} #}
-                
+				{# {{ knp_pagination_render(itemPaginate, 'layouts/panierPagination.html.twig') }} #}
+
 				<br><br>
 
-                 {% if total > 0 %}
-                    <h5 style="float : right; color : rgba(255, 136, 0, 0.719)">Total:
-                        {{ total }}
-                        FCFA</h5>
-                    <br><br>
+				{% if total > 0 %}
+					<h5 style="float : right; color : rgba(255, 136, 0, 0.719)">Total:
+						{{ total }}
+						FCFA</h5>
+					<br><br>
 
-                    <div style="display : flex; gap : 2rem; margin-left : 2rem; align-item : center">
-                        <a href="{{ path('app_cart_remove') }}" @click.prevent="clearCart()" style="background-color : rgba(255, 63, 63, 0.89); padding : 6px 10px; border-radius : 5px; color : white">Vider votre panier</a>
-                        <a href="#" style="background-color : rgba(180, 102, 0, 0.753); padding : 8px 12px; border-radius : 5px; color : white; border : 2px solid #40404035">Valider la conmmande</a>
-                    </div>
-                 {% endif %}   
-				
+					<div style="display : flex; gap : 2rem; margin-left : 2rem; align-item : center">
+						<a href="{{ path('app_cart_remove') }}" @click.prevent="clearCart()" style="background-color : rgba(255, 63, 63, 0.89); padding : 6px 10px; border-radius : 5px; color : white">Vider votre panier</a>
+						<a href="#" style="background-color : rgba(180, 102, 0, 0.753); padding : 8px 12px; border-radius : 5px; color : white; border : 2px solid #40404035">Valider la conmmande</a>
+					</div>
+				{% endif %}
+
 			</div>
-    </main>
-</body>
+		</main>
+	</body>
 
 {% endblock %}
 
 {% block javascripts %}
-    {% block importmap %}{{ importmap('app') }}{% endblock %}
+	{% block importmap %}
+		{{ importmap('app') }}
+	{% endblock %}
 
-    <script>
-        // JavaScript pour le fonctionnement des onglets
-        function showContent(tabId) {
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('.tab-content');
+	<script>
+		// JavaScript pour le fonctionnement des onglets
+function showContent(tabId) {
+const tabs = document.querySelectorAll('.tab');
+const tabContents = document.querySelectorAll('.tab-content');
 
-            tabs.forEach(tab => tab.classList.remove('active-tab'));
-            tabContents.forEach(content => content.classList.remove('active-content'));
+tabs.forEach(tab => tab.classList.remove('active-tab'));
+tabContents.forEach(content => content.classList.remove('active-content'));
 
-            const selectedTab = document.getElementById(tabId);
-            selectedTab.classList.add('active-content');
+const selectedTab = document.getElementById(tabId);
+selectedTab.classList.add('active-content');
 
-            const correspondingTab = Array.from(tabs).find(tab => tab.getAttribute('onclick').includes(tabId));
-            if (correspondingTab) {
-                correspondingTab.classList.add('active-tab');
-            }
-        }
+const correspondingTab = Array.from(tabs).find(tab => tab.getAttribute('onclick').includes(tabId));
+if (correspondingTab) {
+correspondingTab.classList.add('active-tab');
+}
+}
 
-        // Image defilement
-        let slideIndex = 0;
+// Image defilement
+let slideIndex = 0;
 
-        function showSlides() {
-            let slides = document.getElementsByClassName("slide");
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1;
-            }
-            slides[slideIndex - 1].style.display = "block";
-            setTimeout(showSlides, 5000); // Change d'image toutes les 2 secondes (2000 ms)
-        }
+function showSlides() {
+let slides = document.getElementsByClassName("slide");
+for (let i = 0; i < slides.length; i++) {
+slides[i].style.display = "none";
+}
+slideIndex++;
+if (slideIndex > slides.length) {
+slideIndex = 1;
+}
+slides[slideIndex - 1].style.display = "block";
+setTimeout(showSlides, 5000); // Change d'image toutes les 2 secondes (2000 ms)
+}
 
-        // Démarrez le diaporama lorsque la page est chargée
-        window.onload = function () {
-            showSlides();
-        };
-    </script>
+// Démarrez le diaporama lorsque la page est chargée
+window.onload = function () {
+showSlides();
+};
+	</script>
 {% endblock %}
