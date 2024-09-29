@@ -31,7 +31,7 @@
 			background: #132b47;
 			cursor: pointer;
 		}
-
+		/*main*/
 		.Block_main {
 			max-width: 1114px;
 			margin-left: auto;
@@ -103,7 +103,7 @@
 			display: grid;
 			grid-template-columns: repeat(5, 200px);
 			grid-template-rows: repeat(2, 200px);
-			gap: 10px;
+			gap: 10px;	
 		}
 		.item {
 			width: 100%;
@@ -246,6 +246,119 @@
 		button[type="submit"]:hover {
 			background-color: #163f9b;
 		}
+		@media(max-width: 874px) {
+			body {
+				width: 100%;
+				font-size: 14px;
+			}
+			/* Image*/
+			.Block_img {
+				padding-block: 15px;
+				padding-inline: 20px;
+			}
+			.Block_texte_h1 {
+				font-size: 20px;
+			}
+			.texte {
+				font-size: 12px;
+			}
+			.bntB {
+				font-size: 11px;
+			}
+			.Block_img .Block_texte button {
+				padding: 10px 12px;
+				margin-top: 1rem;
+			}
+
+			/*main*/
+			.Block_main {
+				padding-inline: 2rem;
+			}
+
+			/*Propos*/
+			.Block_propos {
+				display: flex;
+				flex-direction: column;
+				gap: 2rem;
+				padding-block: 1rem;
+			}
+
+			.img_P img {
+				width: 80%;
+			}
+
+			.text_P h4 {
+				font-size: 20px;
+			}
+
+			/*Service*/
+
+			.Block_service {
+				padding-inline: 0;
+				padding-block: 2rem;
+			}
+			.Block_service h4 {
+				font-size: 20px;
+			}
+			.Block_service_listes {
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+			}
+			.service_listes {
+				padding-block: 10px;
+			}
+
+			/*Gallery*/
+
+			.Block_gallery {
+				padding-inline: 0;
+			}
+			.Block_gallery h4 {
+				font-size: 20px;
+			}
+			.Block_gallery p {}
+
+			.gallery_container {
+				width: 100%;
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+				grid-template-rows: repeat(2, 1fr);
+				gap: 2px;
+			}
+
+			/*Contact*/
+
+			.contact-section {
+				display: flex;
+				background-color: #fff;
+				padding-block: 2rem;
+				align-items: center;
+				gap: 0;
+
+			}
+
+			.contact-image img {
+				display:none;
+			}
+
+			.contact-form {
+				flex: 2;
+			}
+
+			.contact-form h4 {
+				font-size: 20px;
+				margin-bottom: 30px;
+			}
+
+			.contact-form p {
+				font-size: 14px;
+			}
+
+			.contact-form p a {
+				font-size: 16px;
+			}
+		}
 	</style>
 	{# Image entete #}
 	<div class="Block_header">
@@ -253,7 +366,7 @@
 			class="Block_img">
 			{# <img src="{{ asset('Images/fabricant-menuiserie-bois.jpg') }}" alt="..." class="photo"/> #}
 			<div class="Block_texte">
-				<h1>La solution à vos projets de Menuiserie d'Ameublement, BTP & diverses Prestation</h1>
+				<h1 class="Block_texte_h1">La solution à vos projets de Menuiserie d'Ameublement, BTP & diverses Prestation</h1>
 				<br>
 				<p class="texte">L'atelier du Menuisier fabrique tout type de meubles de rangement sur mesure</p>
 				<button class="bntB">

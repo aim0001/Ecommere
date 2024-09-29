@@ -2,85 +2,85 @@
 
 {% block stylesheets %}
 
-<style>
-.form {
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 8rem;
-  margin-bottom: 5rem;    
-  padding: 25px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  border-radius: 6px;
-}
+	<style>
+		.form {
+			max-width: 500px;
+			margin: 8rem auto 5rem;
+			padding: 25px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			border-radius: 6px;
+		}
 
-.form h2 {
-  margin: 10px 0;
-  font-weight: 500;
-  text-align: center;
-  text-transform: uppercase;
-}
+		.form h2 {
+			margin: 10px 0;
+			font-weight: 500;
+			text-align: center;
+			text-transform: uppercase;
+		}
 
-.error-message {
-  color: red;
-  font-size: 16px;
-}
+		.error-message {
+			color: red;
+			font-size: 16px;
+		}
 
-.logged-in-message {
-  color: green;
-  font-size: 16px;
-}
+		.logged-in-message {
+			color: green;
+			font-size: 16px;
+		}
 
-.input-field {
-  padding: 8px;
-  border: 1px solid #999;
-  margin-top: 4px;
-  outline: 0;
-  width: 100%;
-}
+		.input-field {
+			padding: 8px;
+			border: 1px solid #999;
+			margin-top: 4px;
+			outline: 0;
+			width: 100%;
+		}
 
-.input-field:focus {
-  border: 1px solid rgb(255, 207, 119);
-}
+		.input-field:focus {
+			border: 1px solid rgb(255, 207, 119);
+		}
 
-.submit {
-  margin-top: 30px;
-    background-color: rgba(255, 136, 0, 0.719);
-    border: 1px solid rgb(145, 205, 255);
-    cursor: pointer;
-    color: white;
-    padding: 0.2rem;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
-    width: 450px;
-}
-
-</style>
+		.submit {
+			margin-top: 30px;
+			background-color: rgba(255, 136, 0, 0.719);
+			border: 1px solid rgb(145, 205, 255);
+			cursor: pointer;
+			color: white;
+			padding: 0.2rem;
+			text-transform: uppercase;
+			font-size: 18px;
+			font-weight: 600;
+			width: 450px;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-<div class="form">
-    <h2>Inscription</h2>
+	<br>
+	<a href="{{ path('menu_Accueil') }}" style="float: left; font-size: 18px; font-weight:600;color:rgb(255, 191, 72);margin-left:1rem;">
+		<i class="fa-solid fa-chevron-left"></i>
+		Revenir à l'Accueil</a>
+	<div class="form">
+		<h2>Inscription</h2>
 
-    {{ form_errors(registrationForm) }}
+		{{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        <label for="{{ registrationForm.firstName.vars.id }}">Nom</label>
-        {{ form_widget(registrationForm.firstName, { 'attr': {'class': 'input-field'} }) }}
+		{{ form_start(registrationForm) }}
+		<label for="{{ registrationForm.firstName.vars.id }}">Nom</label>
+		{{ form_widget(registrationForm.firstName, { 'attr': {'class': 'input-field'} }) }}
 
-        <label for="{{ registrationForm.lastName.vars.id }}">Prénom</label>
-        {{ form_widget(registrationForm.lastName, { 'attr': {'class': 'input-field'} }) }}
+		<label for="{{ registrationForm.lastName.vars.id }}">Prénom</label>
+		{{ form_widget(registrationForm.lastName, { 'attr': {'class': 'input-field'} }) }}
 
-        <label for="{{ registrationForm.email.vars.id }}">Email</label>
-        {{ form_widget(registrationForm.email, { 'attr': {'class': 'input-field'} }) }}
+		<label for="{{ registrationForm.email.vars.id }}">Email</label>
+		{{ form_widget(registrationForm.email, { 'attr': {'class': 'input-field'} }) }}
 
-        <label for="{{ registrationForm.plainPassword.vars.id }}">Password</label>
-        {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'input-field'}, 'label': 'Password' }) }}
-            <br/><br/>
-        {{ form_row(registrationForm.agreeTerms) }}
+		<label for="{{ registrationForm.plainPassword.vars.id }}">Password</label>
+		{{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'input-field'}, 'label': 'Password' }) }}
+		<br/><br/>
+		{{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="submit">S'insrire</button>
-    {{ form_end(registrationForm) }}
-</div>
+		<button type="submit" class="submit">S'insrire</button>
+		{{ form_end(registrationForm) }}
+	</div>
 {% endblock %}

@@ -168,7 +168,16 @@ a:hover {
     align-items: center;
     justify-content: space-between;
 }
-
+@media (max-width: 874px) {
+    .menu{
+        padding-inline: 5px;
+    }
+    .menu img,
+      .footer_logo img{
+        width: 10rem;
+      }
+      
+}
 .navi{
     display: flex;
     align-items: center;
@@ -179,60 +188,6 @@ a:hover {
     align-items: center;
     gap: 2rem;
 }
-.menu-icon{
-	display: none;
-}
-
-
-/* Ajout pour le menu hamburger */
-@media only screen and (max-width: 768px) {
-	body{
-		max-width: min-content;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	header {
-		margin-bottom: 6rem;
-	}
-    .menu {
-        display: none; /* Caché par défaut */
-		flex-direction: column; /* Affichage vertical */
-		position: absolute;
-		gap: 1rem;
-		top: 80px; /* Hauteur de l'icône du menu */
-		left: 0;
-		width: 100%;
-		background-color: rgb(255, 251, 244);
-		border-radius: 5px;
-		z-index: 1000;
-		text-align: center;
-    }
-
-    .menu-icon {
-        display: block; /* Afficher le bouton du menu hamburger sur les smartphones */
-		font-size: 25px;
-		cursor: pointer;
-		margin-left: 10rem;
-		padding-top: 0.3rem;
-		padding-bottom: 0.3rem;
-		padding-left: 0.8rem;
-		padding-right: 0.8rem;
-		border-radius: 5px;
-    }
-
-	.menu-icon:hover {
-		background-color: #fafafa;
-		
-		transition: 500ms ease-in-out;
-	}
-
-    .menu.show {
-		display: flex; /* Afficher lorsque le menu hamburger est cliqué */
-		height: calc(26vh - 80px); /* Calculer la hauteur pour s'adapter à la taille de l'écran */
-		overflow-y: auto; /* Activer le défilement si nécessaire */
-    }
-	
-}
 
 .menu_Accueil {
     position: relative;
@@ -240,16 +195,17 @@ a:hover {
 }
 
 .menu_Accueil:hover {
-    color: red;
+    color: rgb(119, 0, 0);
     text-decoration: none;
 }
 
 .menu_Accueil.active {
-    color: red;
+    color: rgb(180, 0, 0);
     font-weight: 600;
     margin-right: 0.8rem;
     margin-left: 0.8rem;
 }
+
 
 .menu_Galerie {
     position: relative;
@@ -257,12 +213,12 @@ a:hover {
 }
 
 .menu_Galerie:hover {
-    color: red;
+    color: rgb(180, 0, 0);
     text-decoration: none;
 }
 
 .menu_Galerie.active {
-    color: red;
+    color: rgb(180, 0, 0);
     font-weight: 600;
     margin-right: 0.8rem;
     margin-left: 0.8rem;
@@ -281,15 +237,35 @@ a:hover {
 }
 
 .menu_Boutique:hover {
-    color: red;
+    color: rgb(180, 0, 0);
     text-decoration: none;
 }
 
 .menu_Boutique.active {
-    color: red;
+    color: rgb(180, 0, 0);
     font-weight: 600;
     margin-right: 0.8rem;
     margin-left: 0.8rem;
+}
+
+@media (max-width: 874px) {
+    .menu_Accueil{
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .menu_Boutique{
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .menu_Galerie{
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+    }
 }
 
 
@@ -304,7 +280,7 @@ a:hover {
     transition: all 0.5s ease-in-out;
 }
 
-#button1:hover {
+.button1:hover {
     background-color: #132b47;
 }
 
@@ -384,12 +360,6 @@ a:hover {
 	overflow-x: auto;
 }
 
-@media only screen and (max-width: 768px) {
-    .table {
-        overflow-y: auto; /* Activer le défilement horizontal sur les petits écrans */
-    }
-    
-}
 
 .table th {
     font-size: 16px;
@@ -881,16 +851,28 @@ a:hover {
 
 		.liste_categorie {
 			display: flex;
-			justify-content: space-around;
+			justify-content: space-evenly;
+            align-items: center;
 			padding: 15px 10px;
-            padding-left: 5rem;
-            padding-right: 5rem;
 			background-color: #ececec;
 			border-top: #4040404b 1px solid;
 			border-radius: 3px;
 			position: sticky;
+            top: 0;
 			z-index: 1000;
+            overflow: visible;
+            
 		}
+        .liste_categorie_sous{
+            white-space: nowrap;
+            display: flex;
+            gap: 2rem;
+
+        }
+
+        .liste_categorie > li {
+            display: inline-block; /* Permet de positionner chaque élément en ligne */
+        }
 		
 		.sous_categories {
 			display: none;
@@ -905,6 +887,7 @@ a:hover {
 			transform: translateX(-50%); /* Centrer horizontalement */
 			top: 100%; /* Positionner en dessous de la catégorie */
 			margin-bottom: 1rem;
+            z-index: 10000;
 		}
 		
 		.item_categorie:hover .sous_categories {
@@ -1063,6 +1046,11 @@ a:hover {
     padding: 5px 5px;
     cursor: pointer;
 }
+
+.search-icon {
+    display: none; /* Masquer l'icône par défaut */
+}
+  
 .buto_incre{
     padding: 5px 10px;
     margin: 0 5px;
@@ -1092,6 +1080,16 @@ a:hover {
 
 .whatsapp-icon:hover {
     transform: scale(1.1); /* Animation simple pour l'effet de survol */
+}
+
+@media (max-width: 874px) {
+    footer{
+        font-size: 12px;
+        padding-inline: 10px;
+    }
+    .whatsapp-icon {
+        right: 2rem;
+    }
 }
 
 
@@ -1321,4 +1319,356 @@ a:hover {
     border-radius: 3px;
     padding-inline: 10px;
     padding-block: 20px;
+}
+
+.container_cont{
+    text-align : start;
+    display : flex;
+    gap: 3rem;
+}
+
+@media (max-width: 1306px) {
+
+    /* GALERIE_PHOTO */
+.Galerie_main{
+    width: 100%;
+    padding-inline: 10px;
+    padding-block: 10px;
+    
+
+}
+.Galerie_block{
+
+    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-direction: column;
+}
+
+.Galerie_block img {
+    width: 100%;
+}
+
+/* Styles pour la modale */
+
+.modal-content {
+    background-color: whitesmoke;
+    margin-inline: 45px;
+    margin-block: 30px;
+    padding-inline: 50px;
+    padding-block: 30px;
+    border-radius: 5px;
+    display: flex;
+    gap: 20px;
+    max-width: 80%;
+}
+
+.modal-content img {
+    width: 100%;
+    height: 30%;
+}
+
+.modal-content .details {
+    flex-direction: column;
+}
+
+.modal-content .details h3 {
+    color: #1A3F6D;
+}
+
+.modal-content .details p {
+    color: #333;
+    font-size: 16px;
+}
+
+.modal-content .details button {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    background-color: #1a3f6d;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.modal_img_desc{
+    flex-direction: column;
+}
+
+#modal-description{
+    border: #4040404b 1px solid;
+	padding: 15px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	border-radius: 3px;
+	width: 100%;
+    height: 100px;
+	overflow-y: auto;
+}
+
+#btn-discussion{
+    background-color: #4CAF50;
+}
+#btn-selectionner{
+    background-color: rgb(192, 192, 192);
+    color: #000;
+    font-weight: 600;
+}
+
+/* Section des produits sélectionnés */
+.selected-products {
+    flex-basis: 30%; /* La section des produits sélectionnés prend 30% de la largeur */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    overflow-y: auto; /* Ajoute un scroll si la liste dépasse la hauteur de l'écran */
+    max-height: 100%; /* Limite la hauteur maximale pour éviter le débordement */
+}
+
+.selected-products h2 {
+    color: #1A3F6D;
+}
+
+.selected-products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 80px); /* Affiche 2 produits par ligne */
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.selected-product-thumbnail-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+}
+
+.selected-product-thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* Style de la croix pour fermer (supprimer) le produit */
+.remove-product-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: grey;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding-inline: 4px;
+    padding-block: 1px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.remove-product-btn:hover {
+    background-color: rgb(71, 71, 71);
+}
+
+/* Bouton Valider */
+#btn-valider {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#btn-valider:hover {
+    background-color: #218838;
+}
+
+/* Conteneur du produit pour positionner la checkbox */
+.product {
+    position: relative; /* Nécessaire pour que le checkbox soit positionné relativement à ce conteneur */
+}
+
+/* Positionnement du checkbox */
+.product-checkbox {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 10; /* Met le checkbox au-dessus de l'image */
+    transform: scale(1.2); /* Pour agrandir un peu la taille de la checkbox */
+    cursor: pointer; /* Ajoute un pointeur pour indiquer que c'est cliquable */
+}
+.vertical-separator{
+    border-left: #00000056 solid 1px;
+    border-top: #00000056 solid 1px;
+    border-radius: 3px;
+    padding-inline: 10px;
+    padding-block: 20px;
+}
+}
+
+/* Responsive pour la section categorie */
+@media (max-width: 974px) {
+    .boutique{
+        max-width: 100%;
+    }
+    
+    .liste_categorie {
+        padding-block: 15px;
+        align-items: start;
+        overflow-x: auto; /* Défilement horizontal activé */
+        white-space: nowrap; /* Empêcher le texte de s'enrouler */
+    }
+
+    .liste_categorie_sous{
+        overflow-x: auto; /* Activer le défilement horizontal */
+        white-space: nowrap; /* Empêcher le texte de s'enrouler */
+        height: 50px;
+    }   
+
+    .sous_categories {
+        top: 40%;
+         overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
+    }
+    
+    .item_categorie:hover .sous_categories {
+        display: block;
+    }
+
+    .liste_categorie > li {
+        display: inline-block; /* Permet de positionner chaque élément en ligne */
+    }
+    
+
+    .d-flex{
+        width: 100%;
+    }
+
+    .search-icon {
+        display: inline; /* Afficher l'icône */
+    }
+    
+      .search-text {
+        display: none; /* Masquer le texte */
+      }
+
+    .tabs{
+        margin-left: 0;
+        margin-inline-start: 5rem;
+    }
+
+    /*show*/
+
+    .B_block_product {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 10px 5px;
+    }
+
+    .B_image_product{
+        width: 100%;
+        height: 100%;
+    }
+
+    .B_description_product{
+        border: #4040404b 1px solid;
+        padding: 15px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        border-radius: 3px;
+        width: 280px;
+        height: 300px;
+        overflow-y: auto;
+    }
+    .B_description_product::-webkit-scrollbar{
+        display: none;
+    }
+
+    .B_lien_product{
+        border: none;
+        float: right;
+        text-align: center;
+        margin-right: 2rem;
+        width: 180px;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 16px;
+        padding: 0.5rem;
+        background-color: rgb(245, 222, 179);
+    }
+    
+    .B_lien_product:hover {
+        color: #000000;
+        background-color: rgb(240, 207, 145);
+        text-decoration: none;
+    }
+
+    .notif {
+        background: rgba(255, 0, 0, 0.582);
+        color: white;
+        border-radius: 50%;
+        padding: 3px 8px;
+        font-size: small;
+    }
+
+    .added-to-cart {
+        background-color: rgba(245, 222, 179, 0.932); /* Couleur de fond lorsque l'article est ajouté au panier */
+        color: #00000098; /* Couleur du texte */
+    }
+    .added-to-cart:hover{
+        background-color: rgba(245, 222, 179, 0.932);
+        color: #00000098;
+    }
+
+    .container_cont{
+        gap: 1.5rem;
+    }
+.account-menu {
+    left: 65%;
+    bottom: 2%;
+}
+
+
+
+.dropdown_burger {
+    position: relative;
+  }
+  
+  .dropdown_burger .dropdown-content {
+	text-align: start;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    min-width: 300px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+	border-top: 1px solid rgba(0, 0, 0, 0.048);
+  }
+
+  .dropdown-content a:hover {
+    color: rgb(122, 0, 0);
+    transition: 0.5s;
+	background-color: #cfcfcf;
+  }
+  .item-menuH{
+	font-weight: 500;
+  }
+
+  .Sous-ensemble-item-menuH{
+	border-top: 1px solid rgba(0, 0, 0, 0.24);
+  }
+ 
+
 }

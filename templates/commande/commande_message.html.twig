@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <p>
-            Votre commande a été envoyé
-        </p>
-    </div>
+	<div class="container" style="display:flex; flex-direction:column;gap:2rem">
+		<a href="{{ path('menu_Accueil') }}" style="float: left; font-size: 18px; font-weight:600;color:rgb(255, 191, 72);margin-left:1rem;">
+			<i class="fa-solid fa-chevron-left"></i>
+			Revenir à l'Accueil</a>
+		<p>
+			Votre commande a été envoyé
+		</p>
+	</div>
 {% endblock %}

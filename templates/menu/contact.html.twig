@@ -108,7 +108,44 @@
 		button[type="submit"]:hover {
 			background-color: #163f9b;
 		}
+
+		@media (max-width: 874px) {
+			.contact-section {
+				display: flex;
+				background-color: #fff;
+				padding-block: 2rem;
+				padding-inline:2rem;
+				align-items: center;
+				gap: 0;
+
+			}
+
+			.contact-image img {
+				display:none;
+			}
+
+			.contact-form {
+				flex: 2;
+			}
+
+			.contact-form h4 {
+				font-size: 20px;
+				margin-bottom: 30px;
+			}
+
+			.contact-form p {
+				font-size: 14px;
+			}
+
+			.contact-form p a {
+				font-size: 16px;
+			}
+		}
 	</style>
+	<br>
+	<a href="{{ path('menu_Accueil') }}" style="float: left; font-size: 18px; font-weight:600;color:rgb(255, 191, 72);margin-left:1rem;">
+			<i class="fa-solid fa-chevron-left"></i>
+			Revenir à l'Accueil</a>
 
 	<div class="contact-section">
 		<div class="contact-image">

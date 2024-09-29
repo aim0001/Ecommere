@@ -1,0 +1,124 @@
+.menu img,
+.footer_logo img{
+    width: 13rem;
+  }
+.menu-icon {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .account_burger .toggle-account-menu{
+    width: 100px;
+    padding: 0.5rem;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    background-color: #6d1a1a;
+    border: none;
+    border-radius: 05px;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .account_burger .toggle-account-menu:hover{
+    background-color: #4e1313;
+  }
+
+  .burger_menu{
+    display: none;
+    height: 0;
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    width: 200px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .burger_menu.open{
+    height: 320px;
+  }
+
+  .burger_menu li {
+    padding: 0.6rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .CompteContact_burger{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .account_burger{
+    cursor: pointer;
+  }
+
+  .divider {
+    height: 1px;
+    background-color: #fff;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+  }
+  
+  /* Media query pour les petits écrans (max-width de 768px est une taille commune pour les tablettes et mobiles) */
+@media (max-width: 874px) {
+    .contain_nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: 2rem;
+      }
+
+      .menu img,
+      .footer_logo img{
+        width: 10rem;
+      }
+      
+    .menu .navi li,
+    .menu .CompteContact{
+        display: none;
+    }
+
+    .burger_menu{
+        display: block;
+    }
+}
+
+@media (max-width: 576px) {
+    .menu .navi li,
+    .menu .CompteContact{
+        display: none;
+    }
+
+    .burger_menu{
+       left: 2rem;
+        width: unset;
+    }
+}
+
+/* Pour les grands écrans, toujours afficher le menu et cacher l'icône du menu */
+@media (min-width: 875px) {
+    .menue {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .menu-icon {
+      display: none; /* Cache l'icône du menu sur les grands écrans */
+    }
+  }

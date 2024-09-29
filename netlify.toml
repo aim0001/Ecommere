@@ -1,0 +1,7 @@
+[build]
+command = "composer install --ignore-platform-reqs && php bin/console cache:clear --env=prod && php bin/console assets:install --symlink --relative"
+publish = "public"
+
+[context.production]
+environment = "prod"
+PHP_VERSION = "8.2"

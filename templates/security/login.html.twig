@@ -1,106 +1,111 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
- <style>
+	<style>
 
- html {
-    scroll-behavior: smooth;
-}
+		html {
+			scroll-behavior: smooth;
+		}
 
-li {
-    list-style-type: none;
-}
-a{
-    color: black;
-    text-decoration: none;
-}
-    .form {
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 8rem;
-    margin-bottom: 5rem;
-    background-color: #f6f8f8;
-    padding: 25px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    border-radius: 6px;
-}
+		li {
+			list-style-type: none;
+		}
+		a {
+			color: black;
+			text-decoration: none;
+		}
+		.form {
+			max-width: 500px;
+			margin: 8rem auto 5rem;
+			background-color: #f6f8f8;
+			padding: 25px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			border-radius: 6px;
+		}
 
-.login-form {
-    display: flex;
-    flex-direction: column;
-}
+		.login-form {
+			display: flex;
+			flex-direction: column;
+		}
 
-h2 {
-    margin: 10px 0;
-    font-weight: 500;
-    text-transform: uppercase;
-    text-align: center;
-}
+		h2 {
+			margin: 10px 0;
+			font-weight: 500;
+			text-transform: uppercase;
+			text-align: center;
+		}
 
-.error-message {
-    color: red;
-    font-size: 16px;
-}
+		.error-message {
+			color: red;
+			font-size: 16px;
+		}
 
-.logged-in-message {
-    color: rgb(28, 15, 141);
-    font-size: 14px;
-}
+		.logged-in-message {
+			color: rgb(28, 15, 141);
+			font-size: 14px;
+		}
 
-label {
-    margin-top: 6px;
-    text-transform: uppercase;
-    font-size: 16px;
-}
+		label {
+			margin-top: 6px;
+			text-transform: uppercase;
+			font-size: 16px;
+		}
 
-input {
-    padding: 8px;
-    border: 1px solid #999;
-    margin-top: 4px;
-    outline: 0;
-}
+		input {
+			padding: 8px;
+			border: 1px solid #999;
+			margin-top: 4px;
+			outline: 0;
+		}
 
-input:focus {
-    border: 1px solid rgb(255, 207, 119);
-}
+		input:focus {
+			border: 1px solid rgb(255, 207, 119);
+		}
 
-.submit {
-    margin-top: 50px;
-    background-color: rgba(255, 136, 0, 0.719);
-    border: 1px solid rgb(145, 205, 255);
-    cursor: pointer;
-    color: white;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 0.2rem;
-}
- </style>
-        {% endblock %}
+		.submit {
+			margin-top: 50px;
+			background-color: rgba(255, 136, 0, 0.719);
+			border: 1px solid rgb(145, 205, 255);
+			cursor: pointer;
+			color: white;
+			text-transform: uppercase;
+			font-size: 18px;
+			font-weight: 600;
+			padding: 0.2rem;
+		}
+	</style>
+{% endblock %}
 
 {% block body %}
-<div class="form">
-    <h2 id="1">Connexion</h2>
-    <form method="post" class="login-form">
-        {% if error %}
-            <div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
 
-        {% if app.user %}
-            <div class="logged-in-message">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}" style = "color : red">Logout</a>
-            </div>
-        {% endif %}
+	<br>
+	<a href="{{ path('menu_Accueil') }}" style="float: left; font-size: 18px; font-weight:600;color:rgb(255, 191, 72);margin-left:1rem;">
+		<i class="fa-solid fa-chevron-left"></i>
+		Revenir à l'Accueil</a>
 
-        <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input-field" autocomplete="email" required autofocus>
-        <label for="inputPassword">Password</label>
-        <input type="password" name="password" id="inputPassword" class="input-field" autocomplete="current-password" required>
+	<div class="form">
+		<h2 id="1">Connexion</h2>
+		<form method="post" class="login-form">
+			{% if error %}
+				<div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			{% if app.user %}
+				<div class="logged-in-message">
+					You are logged in as
+					{{ app.user.userIdentifier }},
+					<a href="{{ path('app_logout') }}" style="color : red">Logout</a>
+				</div>
+			{% endif %}
 
-        <button type="submit" class="submit">se connecter</button>
-    </form>
-</div>
+			<label for="inputEmail">Email</label>
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input-field" autocomplete="email" required autofocus>
+			<label for="inputPassword">Password</label>
+			<input type="password" name="password" id="inputPassword" class="input-field" autocomplete="current-password" required>
+
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+			<button type="submit" class="submit">se connecter</button>
+		</form>
+	</div>
 {% endblock %}
