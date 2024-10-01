@@ -13,11 +13,9 @@
 		<link rel="stylesheet" href="{{ asset('css/responsive.css') }}"/>
 		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script>
 		{% block stylesheets %}{% endblock %}
-            {{ encore_entry_link_tags('app') }}
 
 
 		{% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
 			{% block importmap %}
 				{{ importmap('app') }}
 			{% endblock %}
