@@ -14,10 +14,20 @@
 		.Block_img {
 			padding-block: 150px;
 			padding-inline: 200px;
-			background: url('/Images/fabricant-menuiserie-bois.jpg');
+			color: white;
+		}
+		.Block_img::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 90%;
+			background: url('/Images/diapo2.jpg');
+			filter: brightness(0.5);
 			background-repeat: no-repeat;
 			background-size: cover;
-			color: white;
+			z-index: -1;
 		}
 		.Block_img .Block_texte button {
 			color: white;
@@ -46,10 +56,18 @@
 			padding-block: 2rem;
 		}
 
-		.img_P img {
-			width: 35rem;
-			opacity: 0.8;
-			border-radius: 5px;
+		.img_P {
+			width: 200rem; /* ou une autre taille souhaitée */
+			height: 400px;
+			overflow: hidden;
+			border-radius: 5px; /* pour arrondir les coins si nécessaire */
+		}
+
+		.img_P video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover; /* Remplit le carré sans distorsion */
+			border-radius: inherit;
 		}
 
 		.text_P h4 {
@@ -103,7 +121,7 @@
 			display: grid;
 			grid-template-columns: repeat(5, 200px);
 			grid-template-rows: repeat(2, 200px);
-			gap: 10px;	
+			gap: 10px;
 		}
 		.item {
 			width: 100%;
@@ -256,6 +274,10 @@
 				padding-block: 15px;
 				padding-inline: 20px;
 			}
+			.Block_img::before {
+				width: 100%;
+				height: 45%;
+			}
 			.Block_texte_h1 {
 				font-size: 20px;
 			}
@@ -284,6 +306,15 @@
 			}
 
 			.img_P img {
+				width: 80%;
+			}
+
+			.img_P {
+				width: 30rem; /* ou une autre taille souhaitée */
+				height: 300px;
+			}
+
+			.img_P video {
 				width: 80%;
 			}
 
@@ -339,7 +370,7 @@
 			}
 
 			.contact-image img {
-				display:none;
+				display: none;
 			}
 
 			.contact-form {
@@ -377,7 +408,8 @@
 			<div class="Block_main">
 				<div class="Block_propos">
 					<div class="img_P">
-						<img src="Images/ouvrier-du-batiment-utilise-pistolet-clous-pneumatique_1280275-231940.avif" alt="..."/>
+						<video id="delayedVideo" muted loop playsinline>
+							<source src="Images/video.mp4" type="video/mp4"/></video>
 					</div>
 					<div class="text_P">
 						<h4>À propos de belbois</h4>
@@ -436,11 +468,11 @@
 					<p>Plongez dans l'univers de
 						<span>belbois</span>.</p>
 					<div class="gallery_container">
-						<img class="item item1" src="Images/ouvrier-du-batiment-utilise-pistolet-clous-pneumatique_1280275-231940.avif" alt="Bear 1" style="height: 100%; width: 100%"/>
-						<img class="item item2" src="Images/communication-and-contact-us-or-customer-support-hotline-people-connect-hand-using-a-laptop-and-touching-on-virtual-screen-contact-icons-email-and-address-live-chat-with-internet-wifi-photo.jpg" alt="Bear 2" style="height: 100%; width: 100%"/>
-						<img class="item item3" src="Images/artisan-faisant-vue-cote-coupe-bois_23-2150104762.avif" alt="Bear 3" style="height: 100%; width: 100%"/>
-						<img class="item item4" src="Images/morceaux-bois-outils-pour-construction-reparation-table-bois_181624-51622.avif" alt="Bear 4" style="height: 100%; width: 100%"/>
-						<img class="item item5" src="Images/outils-travail_1261838-5866.jpg" alt="Bear 5" style="height: 100%; width: 100%"/>
+						<img class="item item1" src="Images/diapo5.jpg" alt="Bear 1" style="height: 100%; width: 100%"/>
+						<img class="item item2" src="Images/diapo6.jpg" alt="Bear 2" style="height: 100%; width: 100%"/>
+						<img class="item item3" src="Images/diapo3.jpg" alt="Bear 3" style="height: 100%; width: 100%"/>
+						<img class="item item4" src="Images/diapo7.jpg" alt="Bear 4" style="height: 100%; width: 100%"/>
+						<img class="item item5" src="Images/diapo1.jpg" alt="Bear 5" style="height: 100%; width: 100%"/>
 					</div>
 					<br>
 					<div class="boutton">
@@ -479,4 +511,14 @@
 
 
 			</div>
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+const video = document.getElementById('delayedVideo');
+
+// Démarre la vidéo automatiquement après 5 secondes (5000 ms)
+setTimeout(() => {
+video.play();
+}, 2000);
+});
+			</script>
 		{% endblock %}
